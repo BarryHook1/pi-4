@@ -26,6 +26,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Definir o esquema de usuário
 const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
@@ -43,16 +44,20 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Buscar o usuário no banco de dados pelo email
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Usuário não encontrado' });
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado' });
+    }
 
+    // Comparar a senha recebida com a senha armazenada (criptografada)
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Senha incorreta' });
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Senha incorreta' });
+    }
 
-    // Gerar token JWT
-    const token = jwt.sign({ id: user._id }, 'seuSegredoJWT', { expiresIn: '1h' });
-
-    res.status(200).json({ token });
+    // Se email e senha estiverem corretos, você pode gerar um token JWT ou simplesmente retornar sucesso
+    res.status(200).json({ message: 'Login bem-sucedido' });
   } catch (err) {
     res.status(500).json({ message: 'Erro no servidor' });
   }
@@ -60,13 +65,13 @@ app.post('/login', async (req, res) => {
 
 // Rota de registro
 app.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
+    const newUser = new User({name, email, password: hashedPassword });
     await newUser.save();
-    res.status(201).json({ message: 'Usuário registrado com sucesso' });
+    res.status(201).json({ message: 'Usuário registrado com sucesso' }); 
   } catch (err) {
     res.status(500).json({ message: 'Erro ao registrar usuário' });
   }

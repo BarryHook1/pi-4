@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
-import './login.css';  // Importar o arquivo CSS para estilização
-import { useNavigate } from 'react-router-dom';  // Para redirecionamento
+import './login.css';  
+import { useNavigate } from 'react-router-dom';  
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();  // Hook de navegação
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar a lógica de autenticação
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Enviar os dados para o backend ou validar localmente
-  };
 
-  const handleSignupRedirect = () => {
-    navigate('/signup');  // Redireciona para a página de cadastro
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })  // Enviar email e senha ao backend
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        navigate('/');  // Redireciona para a página inicial
+      } else {
+        setMessage(data.message || 'Erro ao fazer login');
+      }
+    } catch (error) {
+      setMessage('Erro ao conectar com o servidor.');
+    }
   };
 
   return (
@@ -44,11 +56,12 @@ function LoginPage() {
           />
         </div>
         <button type="submit">Entrar</button>
+        {message && <p>{message}</p>}
       </form>
 
       <div className="signup-link">
         <p>Não tem cadastro?</p>
-        <button onClick={handleSignupRedirect}>Cadastre-se</button> {/* Redireciona para a página de cadastro */}
+        <button onClick={() => navigate('/signup')}>Cadastre-se</button> {/* Redireciona para a página de cadastro */}
       </div>
     </div>
   );
