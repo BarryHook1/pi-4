@@ -28,7 +28,8 @@ mongoose.connect(process.env.MONGO_URI, {
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  vendedor: { type: Boolean, required: true } // Certifique-se de adicionar o campo role aqui
 });
 
 // Definir o modelo "User" e garantir que a variável seja declarada uma única vez
@@ -57,23 +58,37 @@ app.post('/login', async (req, res) => {
     }
 
     // Se email e senha estiverem corretos, você pode gerar um token JWT ou simplesmente retornar sucesso
-    res.status(200).json({ message: 'Login bem-sucedido' });
+    res.status(200).json({ message: 'Login bem-sucedido', name: user.name })
   } catch (err) {
     res.status(500).json({ message: 'Erro no servidor' });
   }
 });
 
 // Rota de registro
-app.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+app.post('/signup', async (req, res) => {
+  const { name, email, password, vendedor } = req.body;
+
+  console.log('Recebido no backend - Vendedor:', vendedor);  // Verifica o valor booleano recebido
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({name, email, password: hashedPassword });
-    await newUser.save();
-    res.status(201).json({ message: 'Usuário registrado com sucesso' }); 
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+          return res.status(400).json({ message: 'Email já cadastrado' });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newUser = new User({
+          name,
+          email,
+          password: hashedPassword,
+          vendedor  // Agora estamos armazenando o booleano corretamente
+      });
+
+      await newUser.save();
+      res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
   } catch (err) {
-    res.status(500).json({ message: 'Erro ao registrar usuário' });
+      res.status(500).json({ message: 'Erro no servidor' });
   }
 });
 

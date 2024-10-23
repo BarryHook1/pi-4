@@ -1,10 +1,6 @@
-// src/pages/HomePage.js
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './home.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';  // Importando useNavigate para redirecionamento
+import { useNavigate } from 'react-router-dom';
 import bmwLogo from '../../assets/bmw.webp';
 import bydLogo from '../../assets/byd.webp';
 import chevroletLogo from '../../assets/chevrolet.webp';
@@ -15,16 +11,26 @@ import turbina from '../../assets/turbina.jpeg';
 import paddle from '../../assets/paddle.jpg';
 
 const HomePage = () => {
-    const navigate = useNavigate();  // Hook de navegação
+    const navigate = useNavigate();
+    const [userName, setUserName] = useState('');
 
-    // Função para redirecionar para a página de login
-    const handleLoginClick = () => {
-        navigate('/login');  // Redireciona para a página de login
+    useEffect(() => {
+        // Buscando o nome do usuário armazenado após o login
+        const storedUserName = localStorage.getItem('userName');
+        if (storedUserName) {
+            setUserName(storedUserName);
+        }
+    }, []);
+
+    // Função de logout
+    const handleLogout = () => {
+        localStorage.removeItem('userName');  // Remove o nome do usuário
+        setUserName('');
+        navigate('/');  // Redireciona para a página inicial
     };
 
     return (
         <div className="homepage">
-            {/* Header */}
             <header className="header">
                 <div className="logo">
                     <img src={logo} alt="Logo" />
@@ -37,7 +43,14 @@ const HomePage = () => {
                     </ul>
                 </nav>
                 <div className="login">
-                    <button className="login-btn" onClick={handleLoginClick}>Entrar</button> {/* Redireciona ao clicar */}
+                    {userName ? (
+                        <div>
+                            <span>Bem-vindo, {userName}</span>
+                            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                        </div>
+                    ) : (
+                        <button className="login-btn" onClick={() => navigate('/login')}>Entrar</button>
+                    )}
                 </div>
             </header>
 
@@ -45,11 +58,8 @@ const HomePage = () => {
             <section className="banner-section">
                 <img src={banner} alt="Banner" />
                 <div className="search-container">
-                    <div className="search-box">
-                        <FontAwesomeIcon icon={faSearch} className="search-icon" />
-                        <input type="text" placeholder="Digite marca ou modelo do carro" className="search-input" />
-                    </div>
-                    <button className="search-btn">Ver Ofertas (376.171)</button>
+                    <input type="text" placeholder="Digite marca ou modelo do carro" className="search-input" />
+                    <button className="search-btn" onClick={() => navigate('/search')}>Ver Ofertas</button>
                 </div>
             </section>
 
@@ -58,10 +68,10 @@ const HomePage = () => {
                 <section className="official-stores">
                     <h3>Lojas Oficiais</h3>
                     <div className="store-logos">
-                        <img src={bmwLogo} alt="Marca 1" />
-                        <img src={bydLogo} alt="Marca 2" />
-                        <img src={chevroletLogo} alt="Marca 3" />
-                        <img src={renaultLogo} alt="Marca 4" />
+                        <img src={bmwLogo} alt="BMW" />
+                        <img src={bydLogo} alt="BYD" />
+                        <img src={chevroletLogo} alt="Chevrolet" />
+                        <img src={renaultLogo} alt="Renault" />
                     </div>
                 </section>
             </div>
@@ -71,17 +81,17 @@ const HomePage = () => {
                 <h3>Peças Populares</h3>
                 <div className="item-grid">
                     <div className="item-card">
-                        <img src={turbina} alt="Peça 1" />
-                        <p>Turbina IS38  Avaliações: ★★★★☆</p>
+                        <img src={turbina} alt="Turbina" />
+                        <p>Turbina IS38 - Avaliações: ★★★★☆</p>
                     </div>
                     <div className="item-card">
-                        <img src={paddle} alt="Peça 2" />
-                        <p>Paddle Shift Extender  Avaliações: ★★★★☆</p>
+                        <img src={paddle} alt="Paddle Shift" />
+                        <p>Paddle Shift Extender - Avaliações: ★★★★☆</p>
                     </div>
                 </div>
             </section>
         </div>
     );
-}
+};
 
 export default HomePage;

@@ -22,6 +22,8 @@ function LoginPage() {
 
       const data = await response.json();
       if (response.ok) {
+        // Armazenar o nome do usuário no localStorage
+        localStorage.setItem('userName', data.name);
         navigate('/');  // Redireciona para a página inicial
       } else {
         setMessage(data.message || 'Erro ao fazer login');
