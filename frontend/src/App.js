@@ -5,6 +5,7 @@ import HomePage from './pages/homepage/home';
 import LoginPage from './pages/login/login';  // Importando a página de Login
 import SignupPage from './pages/SignupPage/SignupPage';  // Importando a página de Cadastro
 import SearchPage from './pages/searchpage/search';
+import SellPage from './pages/sellpage/sellpage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />  {/* Rota para a LoginPage */}
           <Route path="/signup" element={<SignupPage />} />  {/* Rota para a SignupPage */}
           <Route path="/search" element={<SearchPage />} />  {/* Rota para a SearchPage */}
+          <Route path="/sellpage" element={<SellPage />} />  {/* Rota para a SellPage */}
         </Routes>
       </Router>
     </div>

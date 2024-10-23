@@ -15,18 +15,23 @@ const HomePage = () => {
     const [userName, setUserName] = useState('');
 
     useEffect(() => {
-        // Buscando o nome do usuário armazenado após o login
         const storedUserName = localStorage.getItem('userName');
+
         if (storedUserName) {
             setUserName(storedUserName);
         }
     }, []);
 
-    // Função de logout
     const handleLogout = () => {
-        localStorage.removeItem('userName');  // Remove o nome do usuário
+        localStorage.removeItem('userName');
+        localStorage.removeItem('vendedor');
         setUserName('');
         navigate('/');  // Redireciona para a página inicial
+    };
+
+    // Função que agora permite qualquer usuário acessar a página de vendas
+    const handleSellClick = () => {
+        navigate('/sellpage');  // Redireciona diretamente para a página de vendas
     };
 
     return (
@@ -38,7 +43,9 @@ const HomePage = () => {
                 <nav className="nav">
                     <ul>
                         <li className="header-text"><a href="#">Comprar</a></li>
-                        <li className="header-text"><a href="#">Vender</a></li>
+                        <li className="header-text">
+                            <a href="#" onClick={handleSellClick}>Vender</a>  {/* Sem verificação de vendedor */}
+                        </li>
                         <li className="header-text"><a href="#">Ajuda</a></li>
                     </ul>
                 </nav>
