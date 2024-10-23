@@ -1,0 +1,85 @@
+/* Estilo geral do container de cadastro */
+.signup-container {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background-color: #ecedf2;
+    width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo do título da página de cadastro */
+.signup-container h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo do formulário de cadastro */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Estilo dos labels */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #59595e;
+}
+
+/* Estilo dos campos de entrada (nome, email e senha) */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Estilo do botão de cadastro */
+button {
+    background-color: #e11138;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #c50f31;
+}
+
+/* Estilo de foco nos campos de entrada */
+.form-group input:focus {
+    outline: none;
+    border-color: #e11138;
+    box-shadow: 0 0 5px rgba(225, 17, 56, 0.2);
+}
+
+/* Estilo para a responsividade (mobile) */
+@media (max-width: 500px) {
+    .signup-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .form-group input {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}

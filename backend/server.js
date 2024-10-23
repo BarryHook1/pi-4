@@ -1,25 +1,78 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const initDatabase = require('./database/init');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
+// Carregar variáveis de ambiente
 dotenv.config();
 
+// Inicializar o app
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(express.json());
+app.use(cors()); // Permitir requisições de outras origens (React)
 
-// Connect
-initDatabase().then(() => {
-    // Iniciar o servidor apenas após o banco de dados ser inicializado
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+// Conectar ao MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('MongoDB conectado'))
+  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
+
+// Definir o esquema de usuário
+const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
 });
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('API is running...');
+// Definir o modelo "User" e garantir que a variável seja declarada uma única vez
+let User;
+try {
+  User = mongoose.model('User');
+} catch (error) {
+  User = mongoose.model('User', userSchema);
+}
+
+// Rota de login
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'Usuário não encontrado' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Senha incorreta' });
+
+    // Gerar token JWT
+    const token = jwt.sign({ id: user._id }, 'seuSegredoJWT', { expiresIn: '1h' });
+
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).json({ message: 'Erro no servidor' });
+  }
+});
+
+// Rota de registro
+app.post('/register', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ email, password: hashedPassword });
+    await newUser.save();
+    res.status(201).json({ message: 'Usuário registrado com sucesso' });
+  } catch (err) {
+    res.status(500).json({ message: 'Erro ao registrar usuário' });
+  }
+});
+
+// Iniciar o servidor
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

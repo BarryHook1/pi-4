@@ -4,6 +4,7 @@ import React from 'react';
 import './home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';  // Importando useNavigate para redirecionamento
 import bmwLogo from '../../assets/bmw.webp';
 import bydLogo from '../../assets/byd.webp';
 import chevroletLogo from '../../assets/chevrolet.webp';
@@ -13,8 +14,14 @@ import banner from '../../assets/bannerteste.png';
 import turbina from '../../assets/turbina.jpeg';
 import paddle from '../../assets/paddle.jpg';
 
-
 const HomePage = () => {
+    const navigate = useNavigate();  // Hook de navegação
+
+    // Função para redirecionar para a página de login
+    const handleLoginClick = () => {
+        navigate('/login');  // Redireciona para a página de login
+    };
+
     return (
         <div className="homepage">
             {/* Header */}
@@ -24,13 +31,13 @@ const HomePage = () => {
                 </div>
                 <nav className="nav">
                     <ul>
-                        <li class="header-text"><a href="#">Comprar</a></li>
-                        <li class="header-text"><a href="#">Vender</a></li>
-                        <li class="header-text"><a href="#">Ajuda</a></li>
+                        <li className="header-text"><a href="#">Comprar</a></li>
+                        <li className="header-text"><a href="#">Vender</a></li>
+                        <li className="header-text"><a href="#">Ajuda</a></li>
                     </ul>
                 </nav>
                 <div className="login">
-                    <button className="login-btn">Entrar</button>
+                    <button className="login-btn" onClick={handleLoginClick}>Entrar</button> {/* Redireciona ao clicar */}
                 </div>
             </header>
 
@@ -45,7 +52,6 @@ const HomePage = () => {
                     <button className="search-btn">Ver Ofertas (376.171)</button>
                 </div>
             </section>
-
 
             {/* Official Stores Section */}
             <div className="background-container">

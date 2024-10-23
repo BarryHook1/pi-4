@@ -1,11 +1,20 @@
 import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';  // Importando Routes e Route
 import './App.css';
 import HomePage from './pages/homepage/home';
+import LoginPage from './pages/login/login';  // Importando a página de Login
+import SignupPage from './pages/SignupPage/SignupPage';  // Importando a página de Cadastro
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      <Router>
+        <Routes>  {/* Envolver Route dentro de Routes */}
+          <Route path="/" element={<HomePage />} />  {/* Rota para a HomePage */}
+          <Route path="/login" element={<LoginPage />} />  {/* Rota para a LoginPage */}
+          <Route path="/signup" element={<SignupPage />} />  {/* Rota para a SignupPage */}
+        </Routes>
+      </Router>
     </div>
   );
 }
