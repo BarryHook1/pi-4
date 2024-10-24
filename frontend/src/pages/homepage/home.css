@@ -242,3 +242,74 @@
     width: 80px;
     height: 80px;
 }
+
+/* Estilos para o menu dropdown do vendedor */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Estilos para a lista de sugestões */
+.suggestions-list {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    max-height: 150px;
+    overflow-y: auto;
+    width: calc(100% - 40px); /* Ajuste conforme necessário */
+    margin-top: 5px;
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+.suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
+}

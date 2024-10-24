@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -115,9 +116,17 @@ app.post('/signup', async (req, res) => {
 // Rota para adicionar produto
 app.post("/addProduct", async (req, res) => {
   try {
+    const vendedorId = req.body.vendedorId;
+
+    // Verificar se o vendedorId existe e se o usuário é um vendedor
+    const vendedor = await User.findById(vendedorId);
+    if (!vendedor || !vendedor.vendedor) {
+      return res.status(403).json({ message: "Acesso negado. Você não é um vendedor." });
+    }
+
     // Criando o produto com as informações recebidas
     const novoProduto = {
-      vendedor: req.body.vendedorId,  // Usando o vendedorId diretamente
+      vendedor: vendedorId,
       typeCategory: req.body.typeCategory,
       typePart: req.body.typePart,
       stock: req.body.stock,
@@ -139,6 +148,68 @@ app.post("/addProduct", async (req, res) => {
   }
 });
 
+// Rota para obter produtos de um vendedor específico
+app.get('/vendedor/products/:vendedorId', async (req, res) => {
+  try {
+    const { vendedorId } = req.params;
+    const products = await Product.find({ vendedor: vendedorId });
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Erro ao obter produtos do vendedor:', error);
+    res.status(500).json({ message: 'Erro ao obter produtos.' });
+  }
+});
+
+// Rota para excluir um produto
+app.delete('/products/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    // Verificar se o produto existe
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Produto não encontrado.' });
+    }
+
+    // Excluir o produto
+    await Product.findByIdAndDelete(productId);
+    res.status(200).json({ message: 'Produto excluído com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao excluir produto:', error);
+    res.status(500).json({ message: 'Erro ao excluir produto.' });
+  }
+});
+
+// Rota para atualizar um produto
+app.put('/products/:productId', async (req, res) => {
+    try {
+      const { productId } = req.params;
+      const { stock } = req.body;
+      console.log(`Requisição para atualizar o produto ${productId} com estoque ${stock}`);
+  
+      // Verificar se o produto existe
+      const product = await Product.findById(productId);
+      if (!product) {
+        console.log('Produto não encontrado no banco de dados.');
+        return res.status(404).json({ message: 'Produto não encontrado.' });
+      }
+  
+      // Atualizar o estoque do produto
+      product.stock = stock;
+      try {
+        await product.save();
+        console.log('Produto atualizado com sucesso:', product);
+        res.status(200).json({ message: 'Produto atualizado com sucesso.' });
+      } catch (saveError) {
+        console.error('Erro ao salvar o produto:', saveError);
+        res.status(500).json({ message: 'Erro ao salvar o produto.', error: saveError.message });
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar o produto:', error);
+      res.status(500).json({ message: 'Erro ao atualizar o produto.' });
+    }
+  });
+
 // Rota para obter produtos
 app.get('/products', async (req, res) => {
     try {
@@ -148,7 +219,7 @@ app.get('/products', async (req, res) => {
       console.error('Erro ao obter produtos:', error);
       res.status(500).json({ message: 'Erro ao obter produtos.' });
     }
-  });
+});
 
 // Iniciar o servidor
 app.listen(PORT, () => {

@@ -22,9 +22,10 @@ function LoginPage() {
 
       const data = await response.json();
       if (response.ok) {
-        // Armazenar o nome do usuário e o vendedorId no localStorage
+        // Armazenar o nome do usuário, o vendedorId e o status de vendedor no localStorage
         localStorage.setItem('userName', data.name);
         localStorage.setItem('vendedorId', data.userId);  // Adicionando o vendedorId ao localStorage
+        localStorage.setItem('vendedor', data.vendedor);  // Armazenando o status de vendedor
         navigate('/');  // Redireciona para a página inicial
       } else {
         setMessage(data.message || 'Erro ao fazer login');

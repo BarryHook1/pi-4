@@ -1,0 +1,52 @@
+/* vendedorpage.css */
+.vendedor-page {
+    padding: 20px;
+}
+
+.vendedor-page h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    width: 300px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.product-card h3 {
+    margin-top: 0;
+}
+
+.product-card p {
+    margin: 5px 0;
+}
+
+.actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions button {
+    padding: 5px 10px;
+    background-color: #e11138;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.actions button:hover {
+    background-color: #c10f30;
+}
