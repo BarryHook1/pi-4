@@ -4,28 +4,27 @@
   padding: 20px;
 }
 
-
 /* Sidebar */
 .sidebar {
-    width: 250px;
-    background-color: #f9f9f9;
-    padding: 0px;
-    margin-right: 0px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    height: 90vh; /* Define a altura como 100% da viewport */
-    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
-    position: sticky;
-    top: 0; /* Fixa a posição da sidebar no topo enquanto a página rola */
+  width: 250px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-right: 0px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  height: 90vh; /* Define a altura como 90% da viewport */
+  overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+  position: sticky;
+  top: 0; /* Fixa a posição da sidebar no topo enquanto a página rola */
 }
 
 .sidebar::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background-color: #e11138;
-    border-radius: 10px;
+  background-color: #e11138;
+  border-radius: 10px;
 }
 
 .sidebar h2 {
@@ -33,10 +32,24 @@
   margin-bottom: 10px;
 }
 
+.sidebar h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+}
+
 .sidebar label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.car-models {
+  margin-bottom: 20px;
+}
+
+.part-categories h3 {
   font-size: 16px;
+  margin: 10px 0 5px;
 }
 
 .clear-button {
@@ -53,6 +66,7 @@
 /* Área de Produtos */
 .product-area {
   flex-grow: 1;
+  margin-left: 20px;
 }
 
 .product-area h1 {
@@ -61,11 +75,25 @@
 }
 
 /* Estilos dos Produtos */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .product-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  padding: 10px;
-  width: 250px;
-  text-align: center;
-  margin-bottom: 20px;
+  padding: 15px;
+  width: calc(33.333% - 20px); /* Exibe três cards por linha com gap */
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.product-card h3 {
+  margin-top: 0;
+}
+
+.product-card p {
+  margin: 5px 0;
 }

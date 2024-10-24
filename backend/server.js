@@ -139,6 +139,17 @@ app.post("/addProduct", async (req, res) => {
   }
 });
 
+// Rota para obter produtos
+app.get('/products', async (req, res) => {
+    try {
+      const products = await Product.find().populate('vendedor', 'name');
+      res.status(200).json(products);
+    } catch (error) {
+      console.error('Erro ao obter produtos:', error);
+      res.status(500).json({ message: 'Erro ao obter produtos.' });
+    }
+  });
+
 // Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
