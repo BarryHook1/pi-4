@@ -23,6 +23,22 @@ mongoose.connect(process.env.MONGO_URI, {
     .then(() => console.log('MongoDB conectado'))
     .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
 
+// Definir esquema de produto
+const productSchema = new mongoose.Schema({
+  vendedor: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  typeCategory: { type: String, required: true },
+  typePart: { type: String, required: true },
+  stock: { type: Number, required: true },
+  carBrand: { type: String, required: true },
+  carModel: { type: String, required: true },
+  yearFrom: { type: Number, required: true },
+  yearTo: { type: Number, required: true },
+  condition: { type: String, required: true },
+  description: { type: String, maxLength: 200 },
+});
+
+const Product = mongoose.model('Product', productSchema);
+
 // Definir o esquema de usuário
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -56,8 +72,13 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Senha incorreta' });
         }
 
-        // Retornar o nome do usuário e o status de vendedor
-        res.status(200).json({ message: 'Login bem-sucedido', name: user.name, vendedor: user.vendedor });
+        // Retornar o nome do usuário, o status de vendedor e o userId
+        res.status(200).json({
+            message: 'Login bem-sucedido',
+            name: user.name,
+            vendedor: user.vendedor,
+            userId: user._id  // Adicionando o userId aqui
+        });
     } catch (err) {
         res.status(500).json({ message: 'Erro no servidor' });
     }
@@ -89,6 +110,33 @@ app.post('/signup', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Erro no servidor' });
     }
+});
+
+// Rota para adicionar produto
+app.post("/addProduct", async (req, res) => {
+  try {
+    // Criando o produto com as informações recebidas
+    const novoProduto = {
+      vendedor: req.body.vendedorId,  // Usando o vendedorId diretamente
+      typeCategory: req.body.typeCategory,
+      typePart: req.body.typePart,
+      stock: req.body.stock,
+      carBrand: req.body.carBrand,
+      carModel: req.body.carModel,
+      yearFrom: req.body.yearFrom,
+      yearTo: req.body.yearTo,
+      condition: req.body.condition,
+      description: req.body.description,
+    };
+
+    // Salvando o produto na coleção de produtos
+    const produtoSalvo = await Product.create(novoProduto);
+
+    res.status(200).json({ message: "Produto adicionado com sucesso", produtoSalvo });
+  } catch (error) {
+    console.error("Erro ao adicionar produto:", error);
+    res.status(500).json({ message: "Erro ao adicionar produto." });
+  }
 });
 
 // Iniciar o servidor
