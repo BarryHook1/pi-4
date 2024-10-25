@@ -8,6 +8,7 @@ import SearchPage from './pages/searchpage/search';
 import SellPage from './pages/sellpage/sellpage';
 import VendedorPage from './pages/vendedorpage/vendedorpage';
 import ProductDetail from './pages/productdetailpage/ProductDetail';
+import HelpPage from './pages/helppage/helppage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />  {/* Rota para a SearchPage */}
           <Route path="/sellpage" element={<SellPage />} />  {/* Rota para a SellPage */}
           <Route path="/vendedorpage" element={<VendedorPage />} />  {/* Rota para a VendedorPage */}
+          <Route path="/help" element={<HelpPage />} /> {/* Rota para a página de ajuda */}
           <Route path="/product/:productId" element={<ProductDetail />} />     
         </Routes>
       </Router>

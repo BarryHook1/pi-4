@@ -1,0 +1,33 @@
+/* helppage.css */
+.help-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .help-page h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .help-page h2 {
+    margin-top: 20px;
+  }
+  
+  .help-page p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .help-page ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  .help-page li {
+    margin-bottom: 10px;
+  }
+  
+  .help-page strong {
+    color: #e11138;
+  }

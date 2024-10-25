@@ -1,7 +1,7 @@
 // home.js
 import React, { useState, useEffect } from "react";
 import "./home.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import bmwLogo from "../../assets/bmw.webp";
 import bydLogo from "../../assets/byd.webp";
 import chevroletLogo from "../../assets/chevrolet.webp";
@@ -95,7 +95,7 @@ const HomePage = () => {
         <nav className="nav">
           <ul>
             <li className="header-text">
-              <a href="#">Comprar</a>
+              <Link to="/search">Comprar</Link>
             </li>
             <li className="header-text">
               <a href="#" onClick={handleSellClick}>
@@ -103,7 +103,7 @@ const HomePage = () => {
               </a>
             </li>
             <li className="header-text">
-              <a href="#">Ajuda</a>
+              <Link to="/help">Ajuda</Link>
             </li>
           </ul>
         </nav>
