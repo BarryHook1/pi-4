@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
-import { useLocation } from 'react-router-dom';
+
+import { useLocation, Link } from 'react-router-dom'; // Importar 'Link'
 
 export const carBrandsWithModels = {
     Chevrolet: [
@@ -299,31 +300,33 @@ const SearchPage = () => {
                 <div className="product-list">
                     {filteredProducts.length > 0 ? (
                         filteredProducts.map((product) => (
-                            <div key={product._id} className="product-card">
-                                {/* Aqui você pode exibir as informações do produto */}
-                                <h3>{product.typePart}</h3>
-                                <p>
-                                    <strong>Marca do Carro:</strong> {product.carBrand}
-                                </p>
-                                <p>
-                                    <strong>Modelo do Carro:</strong> {product.carModel}
-                                </p>
-                                <p>
-                                    <strong>Ano:</strong> {product.yearFrom} - {product.yearTo}
-                                </p>
-                                <p>
-                                    <strong>Condição:</strong> {product.condition}
-                                </p>
-                                <p>
-                                    <strong>Descrição:</strong> {product.description}
-                                </p>
-                                <p>
-                                    <strong>Quantidade em Estoque:</strong> {product.stock}
-                                </p>
-                                <p>
-                                    <strong>Vendedor:</strong> {product.vendedor.name}
-                                </p>
-                            </div>
+                            <Link to={`/product/${product._id}`} key={product._id} className="product-card-link">
+                                <div className="product-card">
+                                    {/* Aqui você pode exibir as informações do produto */}
+                                    <h3>{product.typePart}</h3>
+                                    <p>
+                                        <strong>Marca do Carro:</strong> {product.carBrand}
+                                    </p>
+                                    <p>
+                                        <strong>Modelo do Carro:</strong> {product.carModel}
+                                    </p>
+                                    <p>
+                                        <strong>Ano:</strong> {product.yearFrom} - {product.yearTo}
+                                    </p>
+                                    <p>
+                                        <strong>Condição:</strong> {product.condition}
+                                    </p>
+                                    <p>
+                                        <strong>Descrição:</strong> {product.description}
+                                    </p>
+                                    <p>
+                                        <strong>Quantidade em Estoque:</strong> {product.stock}
+                                    </p>
+                                    <p>
+                                        <strong>Vendedor:</strong> {product.vendedor.name}
+                                    </p>
+                                </div>
+                            </Link>
                         ))
                     ) : (
                         <p>Nenhum produto encontrado.</p>

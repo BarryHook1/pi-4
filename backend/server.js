@@ -221,6 +221,66 @@ app.get('/products', async (req, res) => {
     }
 });
 
+// Rota para obter um produto por ID
+app.get('/products/:productId', async (req, res) => {
+  try {
+      const { productId } = req.params;
+      const product = await Product.findById(productId).populate('vendedor', 'name');
+      if (!product) {
+          return res.status(404).json({ message: 'Produto não encontrado.' });
+      }
+      res.status(200).json(product);
+  } catch (error) {
+      console.error('Erro ao obter produto:', error);
+      res.status(500).json({ message: 'Erro ao obter produto.' });
+  }
+});
+
+// Definir esquema de proposta
+const proposalSchema = new mongoose.Schema({
+  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  message: { type: String, required: true },
+  date: { type: Date, default: Date.now },
+});
+
+const Proposal = mongoose.model('Proposal', proposalSchema);
+
+// Rota para enviar uma proposta
+app.post('/proposals', async (req, res) => {
+  try {
+      const { productId, sellerId, email, phone, message } = req.body;
+
+      const newProposal = new Proposal({
+          product: productId,
+          seller: sellerId,
+          email,
+          phone,
+          message,
+      });
+
+      await newProposal.save();
+      res.status(201).json({ message: 'Proposta enviada com sucesso.' });
+  } catch (error) {
+      console.error('Erro ao enviar proposta:', error);
+      res.status(500).json({ message: 'Erro ao enviar proposta.' });
+  }
+});
+
+// Rota para obter propostas de um vendedor
+app.get('/vendedor/proposals/:sellerId', async (req, res) => {
+  try {
+      const { sellerId } = req.params;
+      const proposals = await Proposal.find({ seller: sellerId }).populate('product');
+      res.status(200).json(proposals);
+  } catch (error) {
+      console.error('Erro ao obter propostas:', error);
+      res.status(500).json({ message: 'Erro ao obter propostas.' });
+  }
+});
+
 // Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

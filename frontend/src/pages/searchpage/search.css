@@ -81,19 +81,16 @@
   gap: 20px;
 }
 
-.product-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  width: calc(33.333% - 20px); /* Exibe três cards por linha com gap */
-  box-sizing: border-box;
-  border-radius: 5px;
-}
 
 .product-card h3 {
-  margin-top: 0;
+  margin-top: 10;
 }
 
 .product-card p {
   margin: 5px 0;
+}
+.product-card-link {
+  border-radius: 5px;
+  text-decoration: none;
+  color: inherit;
 }
