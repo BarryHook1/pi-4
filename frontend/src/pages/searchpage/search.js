@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
-
 import { useLocation, Link } from 'react-router-dom'; // Importar 'Link'
 
 export const carBrandsWithModels = {
@@ -117,8 +116,8 @@ const SearchPage = () => {
     const location = useLocation();
 
     // Estados para os filtros selecionados
-    const [selectedBrands, setSelectedBrands] = useState([]);
-    const [selectedModels, setSelectedModels] = useState([]);
+    const [selectedBrand, setSelectedBrand] = useState(''); // Agora apenas uma marca
+    const [selectedModel, setSelectedModel] = useState(''); // Agora apenas um modelo
     const [selectedCondition, setSelectedCondition] = useState([]);
     const [selectedParts, setSelectedParts] = useState([]);
 
@@ -133,15 +132,15 @@ const SearchPage = () => {
             const searchItem = location.state.searchItem;
             // Verificar se o item é uma marca
             if (carBrandsWithModels[searchItem]) {
-                setSelectedBrands([searchItem]);
+                setSelectedBrand(searchItem);
             } else {
                 // Verificar se o item é um modelo
                 const foundBrand = Object.keys(carBrandsWithModels).find((brand) =>
                     carBrandsWithModels[brand].includes(searchItem)
                 );
                 if (foundBrand) {
-                    setSelectedBrands([foundBrand]);
-                    setSelectedModels([searchItem]);
+                    setSelectedBrand(foundBrand);
+                    setSelectedModel(searchItem);
                 }
             }
         }
@@ -164,16 +163,19 @@ const SearchPage = () => {
         const filterType = dataset.filterType;
 
         if (filterType === 'brand') {
-            setSelectedBrands((prev) => {
-                const updatedBrands = checked ? [...prev, value] : prev.filter((b) => b !== value);
-                // Se a marca for desmarcada, remover os modelos correspondentes
-                if (!checked) {
-                    setSelectedModels((prevModels) => prevModels.filter((model) => !carBrandsWithModels[value].includes(model)));
-                }
-                return updatedBrands;
-            });
+            if (checked) {
+                setSelectedBrand(value);
+                setSelectedModel(''); // Limpar modelo ao selecionar nova marca
+            } else {
+                setSelectedBrand('');
+                setSelectedModel('');
+            }
         } else if (filterType === 'model') {
-            setSelectedModels((prev) => (checked ? [...prev, value] : prev.filter((m) => m !== value)));
+            if (checked) {
+                setSelectedModel(value);
+            } else {
+                setSelectedModel('');
+            }
         } else if (filterType === 'condition') {
             setSelectedCondition((prev) => (checked ? [...prev, value] : prev.filter((c) => c !== value)));
         } else if (filterType === 'part') {
@@ -183,8 +185,8 @@ const SearchPage = () => {
 
     // Filtrar os produtos com base nos filtros selecionados
     const filteredProducts = products.filter((product) => {
-        const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.carBrand);
-        const modelMatch = selectedModels.length === 0 || selectedModels.includes(product.carModel);
+        const brandMatch = !selectedBrand || product.carBrand === selectedBrand;
+        const modelMatch = !selectedModel || product.carModel === selectedModel;
         const conditionMatch = selectedCondition.length === 0 || selectedCondition.includes(product.condition);
         const partMatch = selectedParts.length === 0 || selectedParts.includes(product.typePart);
         return brandMatch && modelMatch && conditionMatch && partMatch;
@@ -192,8 +194,8 @@ const SearchPage = () => {
 
     // Função para limpar os filtros
     const clearFilters = () => {
-        setSelectedBrands([]);
-        setSelectedModels([]);
+        setSelectedBrand('');
+        setSelectedModel('');
         setSelectedCondition([]);
         setSelectedParts([]);
         // Desmarcar todas as checkboxes
@@ -207,40 +209,63 @@ const SearchPage = () => {
             <div className="sidebar">
                 <h2>Marcas de Carro</h2>
                 <div className="car-brands">
-                    {Object.keys(carBrandsWithModels).map((brand) => (
-                        <label key={brand}>
+                    {selectedBrand === '' ? (
+                        Object.keys(carBrandsWithModels).map((brand) => (
+                            <label key={brand}>
+                                <input
+                                    type="checkbox"
+                                    value={brand}
+                                    data-filter-type="brand"
+                                    onChange={handleFilterChange}
+                                    checked={selectedBrand === brand}
+                                />
+                                {brand}
+                            </label>
+                        ))
+                    ) : (
+                        <label>
                             <input
                                 type="checkbox"
-                                value={brand}
+                                value={selectedBrand}
                                 data-filter-type="brand"
                                 onChange={handleFilterChange}
-                                checked={selectedBrands.includes(brand)}
+                                checked={true}
                             />
-                            {brand}
+                            {selectedBrand}
                         </label>
-                    ))}
+                    )}
                 </div>
 
-                {selectedBrands.length > 0 && (
+                {selectedBrand && (
                     <div className="car-models">
                         <h2>Modelos</h2>
-                        {selectedBrands.map((brand) => (
-                            <div key={brand}>
-                                <h3>{brand}</h3>
-                                {carBrandsWithModels[brand].map((model) => (
+                        <div className="brand-models visible">
+                            {selectedModel === '' ? (
+                                carBrandsWithModels[selectedBrand].map((model) => (
                                     <label key={model}>
                                         <input
                                             type="checkbox"
                                             value={model}
                                             data-filter-type="model"
                                             onChange={handleFilterChange}
-                                            checked={selectedModels.includes(model)}
+                                            checked={selectedModel === model}
                                         />
                                         {model}
                                     </label>
-                                ))}
-                            </div>
-                        ))}
+                                ))
+                            ) : (
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        value={selectedModel}
+                                        data-filter-type="model"
+                                        onChange={handleFilterChange}
+                                        checked={true}
+                                    />
+                                    {selectedModel}
+                                </label>
+                            )}
+                        </div>
                     </div>
                 )}
 
@@ -324,6 +349,9 @@ const SearchPage = () => {
                                     </p>
                                     <p>
                                         <strong>Vendedor:</strong> {product.vendedor.name}
+                                    </p>
+                                    <p>
+                                        <strong>Preço:</strong> {product.price}
                                     </p>
                                 </div>
                             </Link>

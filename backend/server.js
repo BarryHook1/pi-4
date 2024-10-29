@@ -36,6 +36,7 @@ const productSchema = new mongoose.Schema({
   yearTo: { type: Number, required: true },
   condition: { type: String, required: true },
   description: { type: String, maxLength: 200 },
+  price: { type: Number, required: true },
 });
 
 const Product = mongoose.model('Product', productSchema);
@@ -136,6 +137,7 @@ app.post("/addProduct", async (req, res) => {
       yearTo: req.body.yearTo,
       condition: req.body.condition,
       description: req.body.description,
+      price: req.body.price,
     };
 
     // Salvando o produto na coleção de produtos

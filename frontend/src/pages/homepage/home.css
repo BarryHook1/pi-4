@@ -107,38 +107,35 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    /* Alinhamento flexível para que o botão fique ao lado da caixa de texto */
     background-color: white;
     padding: 10px;
-    border-radius: 12px;
+    border-radius: 10px; /* Aumenta o arredondamento */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 5;
-    max-width: 800px;
-    /* Aumenta o tamanho da barra de pesquisa */
+    max-width: 900px; /* Aumenta a largura */
     width: 100%;
 }
 
 .search-box {
     flex-grow: 1;
-    max-width: 80%;
+    max-width: 100%; /* Garante que o contêiner ocupe 100% */
     display: flex;
     align-items: center;
     position: relative;
-
 }
+
 
 .search-input {
-    flex-grow: 1;
-
+    flex-grow: 4;
     width: 100%;
-    /* Ocupa todo o espaço disponível */
-    padding: 10px 20px;
-    /* Adiciona padding para o ícone */
-    padding-left: 40px;
-    /* Adiciona espaço para o ícone à esquerda */
+    padding: 15px 20px; /* Padding mais balanceado */
     border: 1px solid #ddd;
-    border-radius: 25px 0 0 25px;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 1.1rem;
+    margin-right: 5px;
+    text-align: left; /* Alinha o texto e o placeholder à esquerda */
 }
+
+
 
 /* Estilo do ícone de busca dentro da caixa de texto */
 .search-icon {
@@ -151,13 +148,17 @@
     /* Cor do ícone */
 }
 
+
 .search-btn {
     background-color: #e11138;
     color: white;
-    padding: 10px 30px;
+    padding: 10px 20px; /* Diminui o padding para o botão */
     border: none;
-    border-radius: 0 25px 25px 0;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 1.1rem;
+    flex-grow: 2; /* Reduz o espaço ocupado pelo botão */
+    max-width: 300px; /* Limita a largura máxima do botão */
 }
 
 .background-container {
@@ -299,17 +300,56 @@
     border: 1px solid #ddd;
     max-height: 150px;
     overflow-y: auto;
-    width: calc(100% - 40px); /* Ajuste conforme necessário */
-    margin-top: 5px;
+    width: calc(100% - 310px); /* Ajusta para ter a mesma largura do input, considerando o padding */
+    top: 100%; /* Posiciona logo abaixo do input */
     z-index: 1000;
     border-radius: 5px;
+    margin-top: 5px;
+    left: 0;
+    padding: 0; /* Remove o padding padrão */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+}
+
+.suggestions-list ul {
+    list-style-type: none; /* Remove as bolinhas (bullets) */
+    margin: 0;
+    padding: 0;
 }
 
 .suggestions-list li {
     padding: 8px;
     cursor: pointer;
+    text-align: left; /* Alinha o texto à esquerda */
+    font-size: 16px; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Aplica negrito */
+    border-bottom: 1px solid #ddd; /* Adiciona uma linha fina abaixo de cada item */
+}
+
+.suggestions-list li:last-child {
+    border-bottom: none; /* Remove a linha abaixo do último item */
 }
 
 .suggestions-list li:hover {
     background-color: #f0f0f0;
+}
+
+/* Estilos para separar marcas e modelos */
+.suggestions-section {
+    padding: 0;
+    margin: 0;
+}
+
+.suggestions-section h4 {
+    margin: 8px 0 4px 8px;
+    font-size: 14px;
+    color: #888;
+    font-weight: normal;
+    border-bottom: 1px solid #ddd; /* Adiciona uma linha fina abaixo do título da seção */
+    padding-bottom: 4px;
+}
+
+.suggestions-section ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }

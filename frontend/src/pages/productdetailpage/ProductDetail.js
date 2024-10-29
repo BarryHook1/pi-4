@@ -72,6 +72,7 @@ const ProductDetail = () => {
                 <p><strong>Condição:</strong> {product.condition}</p>
                 <p><strong>Descrição:</strong> {product.description}</p>
                 <p><strong>Quantidade em Estoque:</strong> {product.stock}</p>
+                <p><strong>Preço:</strong> {product.price}</p>
                 <p><strong>Vendedor:</strong> {product.vendedor.name}</p>
                 {/* Adicione outras informações ou imagens do produto aqui */}
             </div>
