@@ -1,0 +1,44 @@
+/* PurchaseHistory.css */
+
+.purchase-history {
+    padding: 20px;
+  }
+  
+  .purchase-history h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .purchase-card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .purchase-card h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333333;
+  }
+  
+  .purchase-card p {
+    margin: 5px 0;
+    color: #555555;
+  }
+  
+  .purchase-card strong {
+    font-weight: bold;
+  }
+  
+  @media (max-width: 600px) {
+    .purchase-card {
+      padding: 10px;
+    }
+  
+    .purchase-card h3 {
+      font-size: 1.2em;
+    }
+  }

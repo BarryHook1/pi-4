@@ -308,6 +308,63 @@ app.get("/vendedor/proposals/:sellerId", async (req, res) => {
   }
 });
 
+// Definir esquema de compra
+const purchaseSchema = new mongoose.Schema({
+  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  buyer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  paymentMethod: { type: String, required: true },
+  date: { type: Date, default: Date.now },
+});
+
+const Purchase = mongoose.model('Purchase', purchaseSchema);
+
+// Rota para registrar uma compra
+app.post('/purchase', async (req, res) => {
+  try {
+    const { productId, userId, paymentMethod } = req.body;
+
+    // Verificar se o produto existe
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Produto não encontrado.' });
+    }
+
+    // Verificar se há estoque disponível
+    if (product.stock <= 0) {
+      return res.status(400).json({ message: 'Produto esgotado.' });
+    }
+
+    // Criar registro de compra
+    const newPurchase = new Purchase({
+      product: productId,
+      buyer: userId,
+      paymentMethod,
+    });
+    await newPurchase.save();
+
+    // Atualizar o estoque do produto
+    product.stock -= 1;
+    await product.save();
+
+    res.status(201).json({ message: 'Compra realizada com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao registrar compra:', error);
+    res.status(500).json({ message: 'Erro ao registrar compra.' });
+  }
+});
+
+// Rota para obter as compras de um usuário
+app.get('/purchases/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const purchases = await Purchase.find({ buyer: userId }).populate('product');
+    res.status(200).json(purchases);
+  } catch (error) {
+    console.error('Erro ao obter compras:', error);
+    res.status(500).json({ message: 'Erro ao obter compras.' });
+  }
+});
+
 // Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

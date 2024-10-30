@@ -1,17 +1,23 @@
 // ProductDetail.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductDetail.css';
+import PaymentModal from './PaymentModal'; // Importar o PaymentModal
+import { AuthContext } from '../../context/AuthContext'; // Importar o AuthContext
 
 const ProductDetail = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
+    const { userName, userId } = useContext(AuthContext); // Obter informações do usuário
 
     // Estados para o formulário de contato
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [message, setMessage] = useState('');
     const [submitMessage, setSubmitMessage] = useState('');
+
+    // Estado para controlar o modal de pagamento
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
 
     useEffect(() => {
         fetchProduct();
@@ -58,6 +64,14 @@ const ProductDetail = () => {
         }
     };
 
+    const handleBuyNow = () => {
+        if (!userName) {
+            alert('Você precisa estar logado para comprar um produto.');
+            return;
+        }
+        setShowPaymentModal(true);
+    };
+
     if (!product) {
         return <div>Carregando...</div>;
     }
@@ -72,40 +86,61 @@ const ProductDetail = () => {
                 <p><strong>Condição:</strong> {product.condition}</p>
                 <p><strong>Descrição:</strong> {product.description}</p>
                 <p><strong>Quantidade em Estoque:</strong> {product.stock}</p>
-                <p><strong>Preço:</strong> {product.price}</p>
+                <p><strong>Preço:</strong> R$ {product.price.toFixed(2)}</p>
                 <p><strong>Vendedor:</strong> {product.vendedor.name}</p>
-                {/* Adicione outras informações ou imagens do produto aqui */}
+                {/* Botão Comprar Agora */}
+                <button onClick={handleBuyNow} disabled={product.stock <= 0}>
+                    {product.stock > 0 ? 'Comprar Agora' : 'Produto Esgotado'}
+                </button>
             </div>
 
             <div className="contact-column">
                 <div className="price-card">
-                    <div className="price">R$ {product.price}</div>
-                    
+                    <div className="price">R$ {product.price.toFixed(2)}</div>
                 </div>
 
                 <div className="contact-form">
                     <h2>Entre em Contato com o Vendedor</h2>
-                    <form>
-                        <div className="form-group">
-                            <label>Nome*</label>
-                            <input type="text" required />
-                        </div>
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>Email*</label>
-                            <input type="email" required />
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="form-group">
                             <label>Telefone*</label>
-                            <input type="tel" required />
+                            <input
+                                type="tel"
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="form-group">
                             <label>Mensagem*</label>
-                            <textarea required defaultValue="Olá, tenho interesse na peça. Por favor entre em contato." />
+                            <textarea
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                required
+                            />
                         </div>
                         <button type="submit">Enviar Mensagem</button>
                     </form>
+                    {submitMessage && <p>{submitMessage}</p>}
                 </div>
             </div>
+
+            {/* Modal de Pagamento */}
+            {showPaymentModal && (
+                <PaymentModal
+                    product={product}
+                    onClose={() => setShowPaymentModal(false)}
+                />
+            )}
         </div>
     );
 };

@@ -7,6 +7,9 @@
     padding: 10px 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+.Logo{
+    cursor: pointer;
+}
 
 /* Botão de perfil com bordas arredondadas e animação */
 .profile-btn {

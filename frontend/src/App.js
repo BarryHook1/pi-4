@@ -9,6 +9,7 @@ import SellPage from "./pages/sellpage/sellpage";
 import VendedorPage from "./pages/vendedorpage/vendedorpage";
 import ProductDetail from "./pages/productdetailpage/ProductDetail";
 import HelpPage from "./pages/helppage/helppage";
+import PurchaseHistory from "./pages/PurchaseHistory/PurchaseHistory";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/help" element={<HelpPage />} />{" "}
       {/* Rota para a página de ajuda */}
       <Route path="/product/:productId" element={<ProductDetail />} />
+      <Route path="/purchase-history" element={<PurchaseHistory />} />
     </Routes>
   );
 }
