@@ -1,12 +1,11 @@
 // home.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./home.css";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import bmwLogo from "../../assets/bmw.webp";
 import bydLogo from "../../assets/byd.webp";
 import chevroletLogo from "../../assets/chevrolet.webp";
 import renaultLogo from "../../assets/renault.webp";
-import logo from "../../assets/logo.png";
 import banner from "../../assets/bannerteste.png";
 import turbina from "../../assets/turbina.jpeg";
 import paddle from "../../assets/paddle.jpg";
@@ -15,10 +14,8 @@ import { carBrandsWithModels } from "../searchpage/search"; // Ajuste o caminho 
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("");
-  const [isVendedor, setIsVendedor] = useState(false);
 
-  // Novo estado para o campo de busca
+  // Estados para o campo de busca
   const [searchInput, setSearchInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
@@ -51,91 +48,8 @@ const HomePage = () => {
     setSelectedItem(value);
   };
 
-  useEffect(() => {
-    const storedUserName = localStorage.getItem("userName");
-    const storedVendedor = localStorage.getItem("vendedor");
-
-    if (storedUserName) {
-      setUserName(storedUserName);
-    }
-
-    if (storedVendedor) {
-      setIsVendedor(storedVendedor === "true"); // Converter string para boolean
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("userName");
-    localStorage.removeItem("vendedor");
-    localStorage.removeItem("vendedorId");
-    setUserName("");
-    setIsVendedor(false);
-    navigate("/"); // Redireciona para a página inicial
-  };
-
-  // Função que permite apenas vendedores acessarem a página de venda
-  const handleSellClick = () => {
-    if (isVendedor) {
-      navigate("/sellpage"); // Redireciona para a página de vendas
-    } else {
-      alert("Você precisa ser um vendedor para acessar esta página.");
-    }
-  };
-
-  const handleProfileClick = () => {
-    navigate("/vendedorpage"); // Redireciona para a página do vendedor
-  };
-
   return (
     <div className="homepage">
-      <header className="header">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-        </div>
-        <nav className="nav">
-          <ul>
-            <li className="header-text">
-              <Link to="/search">Comprar</Link>
-            </li>
-            <li className="header-text">
-              <a href="#" onClick={handleSellClick}>
-                Vender
-              </a>
-            </li>
-            <li className="header-text">
-              <Link to="/help">Ajuda</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="login">
-          {userName ? (
-            <div className="user-menu">
-              {isVendedor ? (
-                <div className="dropdown">
-                  <button className="profile-btn" onClick={handleProfileClick}>
-                    Meu Perfil
-                  </button>
-                  <div className="dropdown-content">
-                    <button onClick={handleLogout}>Logout</button>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <span>Bem-vindo, {userName}</span>
-                  <button className="logout-btn" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <button className="login-btn" onClick={() => navigate("/login")}>
-              Entrar
-            </button>
-          )}
-        </div>
-      </header>
-
       {/* Main Banner Section */}
       <section className="banner-section">
         <img src={banner} alt="Banner" />

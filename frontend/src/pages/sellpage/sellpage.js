@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./sellpage.css";
+import { AuthContext } from '../../context/AuthContext';
 
 const carBrandsWithModels = {
   Chevrolet: [
@@ -371,6 +372,7 @@ const partCategories = {
 };
 
 const SellPage = () => {
+    const { userId, isVendedor } = useContext(AuthContext);
   const [typeCategory, setTypeCategory] = useState("");
   const [typePart, setTypePart] = useState("");
   const [stock, setStock] = useState("");
@@ -388,19 +390,17 @@ const SellPage = () => {
     setCarModel(""); // Limpa o modelo quando muda a marca
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const vendedorId = localStorage.getItem("vendedorId");
-    console.log("vendedorId:", vendedorId); // Verifique se o vendedorId não é null
-
-    if (!vendedorId) {
-      alert("Você precisa estar logado para adicionar produtos.");
+    if (!isVendedor) {
+      alert("Você precisa ser um vendedor para adicionar produtos.");
       return;
     }
 
     const productData = {
-      vendedorId, // Enviar o vendedorId na requisição
+        vendedorId: userId, // Usando userId como vendedorId
       typeCategory,
       typePart,
       stock,
