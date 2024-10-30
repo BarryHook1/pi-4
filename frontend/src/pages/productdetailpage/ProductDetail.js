@@ -77,35 +77,34 @@ const ProductDetail = () => {
                 {/* Adicione outras informações ou imagens do produto aqui */}
             </div>
 
-            <div className="contact-form">
-                <h2>Entrar em Contato com o Vendedor</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Email:</label>
-                        <input 
-                            type="email" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
-                            required />
-                    </div>
-                    <div className="form-group">
-                        <label>Telefone:</label>
-                        <input 
-                            type="tel" 
-                            value={phone} 
-                            onChange={(e) => setPhone(e.target.value)} 
-                            required />
-                    </div>
-                    <div className="form-group">
-                        <label>Mensagem:</label>
-                        <textarea 
-                            value={message} 
-                            onChange={(e) => setMessage(e.target.value)} 
-                            required></textarea>
-                    </div>
-                    <button type="submit">Enviar Proposta</button>
-                </form>
-                {submitMessage && <p>{submitMessage}</p>}
+            <div className="contact-column">
+                <div className="price-card">
+                    <div className="price">R$ {product.price}</div>
+                    
+                </div>
+
+                <div className="contact-form">
+                    <h2>Entre em Contato com o Vendedor</h2>
+                    <form>
+                        <div className="form-group">
+                            <label>Nome*</label>
+                            <input type="text" required />
+                        </div>
+                        <div className="form-group">
+                            <label>Email*</label>
+                            <input type="email" required />
+                        </div>
+                        <div className="form-group">
+                            <label>Telefone*</label>
+                            <input type="tel" required />
+                        </div>
+                        <div className="form-group">
+                            <label>Mensagem*</label>
+                            <textarea required defaultValue="Olá, tenho interesse na peça. Por favor entre em contato." />
+                        </div>
+                        <button type="submit">Enviar Mensagem</button>
+                    </form>
+                </div>
             </div>
         </div>
     );

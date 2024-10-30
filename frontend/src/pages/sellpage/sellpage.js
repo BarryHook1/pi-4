@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./sellpage.css";
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from "../../context/AuthContext";
 
 const carBrandsWithModels = {
   Chevrolet: [
@@ -372,7 +372,7 @@ const partCategories = {
 };
 
 const SellPage = () => {
-    const { userId, isVendedor } = useContext(AuthContext);
+  const { userId, isVendedor } = useContext(AuthContext);
   const [typeCategory, setTypeCategory] = useState("");
   const [typePart, setTypePart] = useState("");
   const [stock, setStock] = useState("");
@@ -390,7 +390,6 @@ const SellPage = () => {
     setCarModel(""); // Limpa o modelo quando muda a marca
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -400,7 +399,7 @@ const SellPage = () => {
     }
 
     const productData = {
-        vendedorId: userId, // Usando userId como vendedorId
+      vendedorId: userId, // Usando userId como vendedorId
       typeCategory,
       typePart,
       stock,

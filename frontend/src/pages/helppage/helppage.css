@@ -1,33 +1,72 @@
-/* helppage.css */
+/* Página de ajuda com margens reduzidas e texto maior */
 .help-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .help-page h1 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .help-page h2 {
-    margin-top: 20px;
-  }
-  
-  .help-page p {
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-  
-  .help-page ul {
-    list-style-type: disc;
-    margin-left: 20px;
-  }
-  
-  .help-page li {
-    margin-bottom: 10px;
-  }
-  
-  .help-page strong {
-    color: #e11138;
-  }
+  max-width: 900px; /* Aumenta a largura máxima */
+  margin: 0 auto;
+  padding: 10px 20px; /* Reduz as margens laterais */
+  font-family: Arial, sans-serif;
+}
+
+/* Título principal */
+.help-page h1 {
+  text-align: center;
+  font-size: 2.2em; /* Aumenta o tamanho da fonte */
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Cards das seções */
+.accordion-section {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+/* Título das seções */
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.4em; /* Aumenta o tamanho da fonte do título */
+  font-weight: bold;
+  color: #626262;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accordion-header:hover {
+  background-color: #f5f5f5;
+}
+
+/* Ícone de expansão */
+.accordion-header .icon {
+  font-size: 1.6em; /* Aumenta o ícone */
+  transition: transform 0.3s;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  font-size: 1.1em; /* Aumenta o tamanho do conteúdo */
+  color: #555;
+  line-height: 1.7;
+  padding: 0 10px;
+}
+
+.accordion-content p,
+.accordion-content ul {
+  margin-bottom: 12px;
+}
+
+.accordion-content ul {
+  padding-left: 20px;
+}
+
+.accordion-content li {
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+/* Ícone rotacionado ao expandir */
+.accordion-section.active .icon {
+  transform: rotate(45deg);
+}

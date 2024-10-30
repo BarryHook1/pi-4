@@ -1,72 +1,105 @@
-/* search.css */
-
-/* Estilos para a página de pesquisa */
+/* Estilos gerais para a página de pesquisa */
 .search-page {
   display: flex;
   padding: 0;
 }
 
-/* Sidebar */
+/* Sidebar com estilo de cartões para cada seção */
 .sidebar {
-  width: 350px;
+  width: 300px;
   background-color: #f9f9f9;
   padding: 15px;
   margin-right: 0;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   height: 100vh;
   overflow-y: auto;
-  overflow-x: hidden;
   position: sticky;
   top: 0;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
-/* Garantir que o conteúdo interno não expanda a largura */
-.sidebar * {
-  max-width: 100%;
-  box-sizing: border-box;
+.sidebar h2 {
+  font-size: 18px;
+  color: #333;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
 }
 
-/* Ajustar labels */
+/* Cartões para seções de filtros */
+.sidebar .filter-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+}
+
+.sidebar .filter-card:hover {
+  transform: scale(1.02);
+}
+
+/* Estilos de toggle para checkboxes */
 .sidebar label {
   display: flex;
-  align-items: center; /* Alinha o conteúdo verticalmente */
-  margin-bottom: 0;
-  font-size: 16px; /* Aumentar o tamanho da fonte */
-  word-wrap: break-word;
-  white-space: normal;
-  text-align: left; /* Alinhar o texto à esquerda */
-  padding: 10px 0; /* Adicionar espaçamento vertical */
-  border-bottom: 1px solid #ddd; /* Linha fina abaixo de cada label */
+  align-items: center;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 15px;
 }
 
-/* Remover último border-bottom */
-.sidebar label:last-child {
-  border-bottom: none;
+.sidebar label input[type="checkbox"] {
+  appearance: none;
+  background-color: #ddd;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
 }
 
-.car-models {
-  margin-bottom: 20px;
-}
-
-.part-categories h3 {
-  font-size: 18px; /* Aumentar o tamanho da fonte dos títulos */
-  margin: 10px 0 5px;
-  border-bottom: 1px solid #ddd; /* Linha fina abaixo dos títulos */
-  padding-bottom: 5px;
-}
-
-.clear-button {
-  margin-top: 20px;
-  padding: 10px;
+.sidebar label input[type="checkbox"]:checked {
   background-color: #e11138;
+}
+
+.sidebar label:hover input[type="checkbox"] {
+  background-color: #ccc;
+}
+
+/* Botão de Limpar Filtros fixado na parte inferior */
+.clear-button-container {
+  position: sticky;
+  bottom: 0;
+  background-color: #f9f9f9;
+  padding: 10px 0; /* Remove o padding esquerdo e direito */
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+
+  /* Compensa o padding da .sidebar */
+  margin-left: -20px; /* Margem negativa igual ao padding esquerdo da .sidebar */
+  margin-right: -20px; /* Margem negativa igual ao padding direito da .sidebar */
+  width: calc(100% + 40px); /* Aumenta a largura para compensar as margens negativas */
+  
+  box-sizing: border-box;
+}
+.clear-button {
+  padding: 10px;
+  background-color: #ff5757;
   color: white;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 90%; /* Ajusta a largura dentro do contêiner */
   border-radius: 5px;
-  font-size: 16px; /* Aumentar o tamanho da fonte do botão */
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.clear-button:hover {
+  background-color: #e14a4a;
 }
 
 /* Área de Produtos */
@@ -76,39 +109,61 @@
 }
 
 .product-area h1 {
-  font-size: 28px; /* Aumentar o tamanho da fonte do título */
+  font-size: 28px;
   margin-bottom: 20px;
+  color: #333;
 }
 
-/* Estilos dos Produtos */
+/* Lista de Produtos */
 .product-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.product-card h3 {
-  margin-top: 10px;
-}
-
-.product-card p {
-  margin: 5px 0;
-}
-
 .product-card-link {
   display: block;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição para suavizar o aumento */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 5px;
   text-decoration: none;
   color: inherit;
 }
 
 .product-card-link:hover {
-  transform: scale(1.05); /* Aumenta o card em 5% */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao card para destacá-lo */
+  transform: scale(1.05);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Animações para os modelos */
+/* Estilos do card de produtos */
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  width: 300px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.product-card h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.product-card p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 0.9em;
+}
+
+/* Animações para modelos */
 .brand-models {
   overflow: hidden;
   max-height: 0;
@@ -121,7 +176,7 @@
   opacity: 1;
 }
 
-/* Ocultar outras marcas e modelos */
+/* Ajustes para ocultar outras marcas e modelos */
 .car-brands label,
 .brand-models label {
   transition: opacity 0.3s ease;
@@ -131,24 +186,4 @@
 .brand-models label.hidden {
   opacity: 0;
   pointer-events: none;
-}
-
-/* Estilizar as caixas de seleção */
-input[type="checkbox"] {
-  margin-right: 10px; /* Aumentar o espaçamento entre o checkbox e o texto */
-}
-
-/* Ajustar o tamanho da fonte dos títulos h2 e h3 */
-.sidebar h2 {
-  font-size: 20px; /* Aumentar o tamanho da fonte */
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ddd; /* Linha fina abaixo dos títulos */
-  padding-bottom: 5px;
-}
-
-.sidebar h3 {
-  font-size: 18px; /* Aumentar o tamanho da fonte */
-  margin: 10px 0 5px;
-  border-bottom: 1px solid #ddd; /* Linha fina abaixo dos subtítulos */
-  padding-bottom: 5px;
 }

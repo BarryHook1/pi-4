@@ -1,115 +1,75 @@
-/* header.css */
+/* Estilo para o cabeçalho */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff; /* Defina a cor de fundo desejada */
+    background-color: #fff;
     padding: 10px 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo img {
-    height: 50px; /* Ajuste o tamanho conforme necessário */
-    cursor: pointer;
-  }
-  
-  .nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav li {
-    margin: 0 15px;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: #333; /* Cor do texto */
-    font-size: 16px;
-  }
-  
-  .nav a:hover {
-    color: #e11138; /* Cor ao passar o mouse */
-  }
-  
-  .login {
-    display: flex;
-    align-items: center;
-  }
-  
-  .login-btn,
-  .logout-btn,
-  .profile-btn {
+}
+
+/* Botão de perfil com bordas arredondadas e animação */
+.profile-btn {
     background-color: #e11138;
     color: #fff;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
-    margin-left: 10px;
-    border-radius: 5px;
-  }
-  
-  .login-btn:hover,
-  .logout-btn:hover,
-  .profile-btn:hover {
+    font-weight: bold;
+    border-radius: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.profile-btn:hover {
     background-color: #c00d2e;
-  }
-  
-  .user-menu {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-menu span {
-    margin-right: 10px;
-  }
-  
-  .dropdown {
+    transform: translateY(-2px);
+}
+
+/* Estilo do dropdown container */
+.dropdown {
     position: relative;
     display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
+}
+
+/* Estilo do menu suspenso */
+.dropdown-content {
+    display: none; /* Inicia oculto */
     position: absolute;
     right: 0;
     background-color: #fff;
-    min-width: 120px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-  }
-  
-  .dropdown-content button {
-    color: #333;
-    padding: 10px;
-    text-decoration: none;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* Exibir o dropdown ao passar o mouse ou ao clicar */
+.dropdown:hover .dropdown-content,
+.dropdown.active .dropdown-content {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilo dos botões dentro do dropdown */
+.dropdown-content button {
     width: 100%;
+    padding: 12px 20px;
     background: none;
     border: none;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .dropdown-content button:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .dropdown .profile-btn {
-    background-color: transparent;
     color: #333;
-    border: none;
-    cursor: pointer;
     font-size: 16px;
-  }
-  
-  .dropdown .profile-btn:hover {
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-content button:hover {
+    background-color: #f1f1f1;
     color: #e11138;
-  }
+}
