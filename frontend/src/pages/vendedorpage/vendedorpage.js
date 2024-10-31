@@ -1,4 +1,4 @@
-// vendedorpage.js
+// VendedorPage.js
 import React, { useState, useEffect, useContext } from "react";
 import "./vendedorpage.css";
 import { useNavigate } from "react-router-dom";
@@ -21,24 +21,27 @@ const VendedorPage = () => {
     }
   }, [navigate, isVendedor]);
 
-
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/vendedor/products/${userId}`);
+      const response = await fetch(
+        `http://localhost:8080/vendedor/products/${userId}`
+      );
       const data = await response.json();
       setProducts(data);
     } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
+      console.error("Erro ao buscar produtos:", error);
     }
   };
 
   const fetchProposals = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/vendedor/proposals/${userId}`);
+      const response = await fetch(
+        `http://localhost:8080/vendedor/proposals/${userId}`
+      );
       const data = await response.json();
       setProposals(data);
     } catch (error) {
-      console.error('Erro ao buscar propostas:', error);
+      console.error("Erro ao buscar propostas:", error);
     }
   };
 
@@ -123,7 +126,12 @@ const VendedorPage = () => {
         <div className="product-list">
           {products.length > 0 ? (
             products.map((product) => (
-              <div key={product._id} className="product-card">
+              <div
+                key={product._id}
+                className={`product-card ${
+                  product.stock === 0 ? "out-of-stock" : ""
+                }`}
+              >
                 <h3>{product.typePart}</h3>
                 <p>
                   <strong>Marca do Carro:</strong> {product.carBrand}
@@ -143,6 +151,11 @@ const VendedorPage = () => {
                 <p>
                   <strong>Quantidade em Estoque:</strong> {product.stock}
                 </p>
+                {product.stock === 0 && (
+                  <p className="out-of-stock-message">
+                    Este produto está fora do ar porque o estoque está zerado.
+                  </p>
+                )}
                 <div className="actions">
                   <button onClick={() => handleDelete(product._id)}>
                     Excluir

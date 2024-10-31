@@ -231,7 +231,7 @@ app.put("/products/:productId", async (req, res) => {
 // Rota para obter produtos
 app.get("/products", async (req, res) => {
   try {
-    const products = await Product.find().populate("vendedor", "name");
+    const products = await Product.find({ stock: { $gt: 0 } }).populate("vendedor", "name");
     res.status(200).json(products);
   } catch (error) {
     console.error("Erro ao obter produtos:", error);

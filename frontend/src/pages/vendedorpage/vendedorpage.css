@@ -76,6 +76,16 @@
     font-size: 0.9em;
 }
 
+.product-card.out-of-stock {
+    background-color: #96969682; /* Cor de fundo vermelho claro */
+    border-color: #f5c6cb;
+  }
+  
+  .out-of-stock-message {
+    color: #ff283e; /* Cor do texto vermelho escuro */
+    font-weight: bold;
+  }
+
 /* Ações no rodapé do card */
 .actions {
     margin-top: 15px;
