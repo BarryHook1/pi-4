@@ -25,20 +25,23 @@ const PurchaseHistory = () => {
     <div className="purchase-history">
       <h1>Minhas Compras</h1>
       {purchases.length > 0 ? (
-        purchases.map((purchase) => (
-          <div key={purchase._id} className="purchase-card">
-            <h3>{purchase.product.typePart}</h3>
-            <p>
-              <strong>Data:</strong> {new Date(purchase.date).toLocaleString()}
-            </p>
-            <p>
-              <strong>Método de Pagamento:</strong> {purchase.paymentMethod}
-            </p>
-            <p>
-              <strong>Preço:</strong> R$ {purchase.product.price.toFixed(2)}
-            </p>
-          </div>
-        ))
+        // Adicione a div `purchase-grid` ao redor dos cards
+        <div className="purchase-grid">
+          {purchases.map((purchase) => (
+            <div key={purchase._id} className="purchase-card">
+              <h3>{purchase.product.typePart}</h3>
+              <p>
+                <strong>Data:</strong> {new Date(purchase.date).toLocaleString()}
+              </p>
+              <p>
+                <strong>Método de Pagamento:</strong> {purchase.paymentMethod}
+              </p>
+              <p>
+                <strong>Preço:</strong> R$ {purchase.product.price.toFixed(2)}
+              </p>
+            </div>
+          ))}
+        </div>
       ) : (
         <p>Você ainda não fez nenhuma compra.</p>
       )}

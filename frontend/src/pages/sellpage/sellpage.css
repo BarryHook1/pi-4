@@ -1,106 +1,67 @@
-/* Cartão Principal do Formulário */
 .sell-page {
-    max-width: 650px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Título Principal */
 .sell-page h1 {
     text-align: center;
-    font-size: 2.5em;
-    color: #333;
-    margin-bottom: 30px;
-    font-weight: 600;
+    margin-bottom: 20px;
 }
 
-/* Estilo dos campos de formulário com bordas suaves */
 .form-group {
-    position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    font-weight: 500;
-    font-size: 1.1em;
-    color: #555;
-    margin-bottom: 8px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-/* Estilo dos inputs com sombra e bordas arredondadas */
 .form-group input,
 .form-group select,
 .form-group textarea {
-    width: 100%;
-    padding: 14px 12px;
-    font-size: 1em;
+    width: 100%; /* Para que as barras ocupem toda a largura */
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f7f7f7;
-    transition: all 0.3s ease;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-size: 20px; /* Ajuste para o tamanho da fonte */
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    background-color: #fff;
-    border-color: #0073e6;
-    box-shadow: 0 0 0 3px rgba(0, 115, 230, 0.2);
-    outline: none;
+textarea {
+    height: 100px;
+    resize: vertical;
 }
 
-/* Campos de ano em flex */
-.year-inputs {
-    display: flex;
-    gap: 10px;
-}
-
-.year-inputs input {
-    flex: 1;
-}
-
-/* Estilo de validação e erro */
-.form-group .error-message {
-    color: #e11d48;
-    font-size: 0.85em;
-    margin-top: 5px;
-    display: none;
-    transition: all 0.3s ease;
-}
-
-.form-group.error .error-message {
-    display: block;
-}
-
-/* Botão de Envio Flutuante */
 button[type="submit"] {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     background-color: #e11138;
-    color: #fff;
-    font-size: 1.2em;
+    color: white;
     border: none;
-    border-radius: 50px;
-    box-shadow: 0 4px 10px rgba(0, 115, 230, 0.3);
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 20px;
+    font-size: 16px;
 }
 
 button[type="submit"]:hover {
-    background-color: #005bb5;
-    transform: translateY(-2px);
+    background-color: #b00d2e;
 }
 
-/* Mensagens de ajuda ou descrição */
-.form-group .help-text {
-    font-size: 0.9em;
-    color: #888;
-    margin-top: 5px;
+.year-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Espaço entre os inputs */
+}
+
+.year-inputs input {
+    width: 48%; /* Largura dos campos */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
 }
