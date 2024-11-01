@@ -9,39 +9,47 @@ const VendedorPage = () => {
   const { isVendedor, userId } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [proposals, setProposals] = useState([]);
-  const [activeTab, setActiveTab] = useState("produtos");
+  const [sellerInfo, setSellerInfo] = useState(null);
+  const [activeTab, setActiveTab] = useState('produtos');
 
   useEffect(() => {
     if (!isVendedor) {
-      alert("Você precisa ser um vendedor para acessar esta página.");
-      navigate("/");
+      alert('Você precisa ser um vendedor para acessar esta página.');
+      navigate('/');
     } else {
       fetchProducts();
       fetchProposals();
+      fetchSellerInfo();
     }
   }, [navigate, isVendedor]);
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/vendedor/products/${userId}`
-      );
+      const response = await fetch(`http://localhost:8080/vendedor/products/${userId}`);
       const data = await response.json();
       setProducts(data);
     } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
+      console.error('Erro ao buscar produtos:', error);
     }
   };
 
   const fetchProposals = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/vendedor/proposals/${userId}`
-      );
+      const response = await fetch(`http://localhost:8080/vendedor/proposals/${userId}`);
       const data = await response.json();
       setProposals(data);
     } catch (error) {
-      console.error("Erro ao buscar propostas:", error);
+      console.error('Erro ao buscar propostas:', error);
+    }
+  };
+
+  const fetchSellerInfo = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/seller/${userId}`);
+      const data = await response.json();
+      setSellerInfo(data);
+    } catch (error) {
+      console.error('Erro ao obter informações do vendedor:', error);
     }
   };
 
@@ -50,11 +58,11 @@ const VendedorPage = () => {
       const response = await fetch(
         `http://localhost:8080/products/${productId}`,
         {
-          method: "DELETE",
+          method: 'DELETE',
         }
       );
       if (response.ok) {
-        alert("Produto excluído com sucesso!");
+        alert('Produto excluído com sucesso!');
         // Atualizar a lista de produtos
         setProducts(products.filter((product) => product._id !== productId));
       } else {
@@ -62,29 +70,23 @@ const VendedorPage = () => {
         alert(`Erro ao excluir produto: ${data.message}`);
       }
     } catch (error) {
-      console.error("Erro ao excluir produto:", error);
+      console.error('Erro ao excluir produto:', error);
     }
   };
 
   const handleUpdate = async (productId, updatedStock) => {
-    console.log(
-      "Atualizando produto:",
-      productId,
-      "com novo estoque:",
-      updatedStock
-    );
     try {
       const response = await fetch(
         `http://localhost:8080/products/${productId}`,
         {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ stock: updatedStock }),
         }
       );
       const data = await response.json();
       if (response.ok) {
-        alert("Estoque atualizado com sucesso!");
+        alert('Estoque atualizado com sucesso!');
         // Atualizar a lista de produtos
         setProducts(
           products.map((product) =>
@@ -97,9 +99,9 @@ const VendedorPage = () => {
         alert(`Erro ao atualizar estoque: ${data.message}`);
       }
     } catch (error) {
-      console.error("Erro ao atualizar estoque:", error);
+      console.error('Erro ao atualizar estoque:', error);
       alert(
-        "Erro ao atualizar estoque. Verifique o console para mais detalhes."
+        'Erro ao atualizar estoque. Verifique o console para mais detalhes.'
       );
     }
   };
@@ -107,29 +109,59 @@ const VendedorPage = () => {
   return (
     <div className="vendedor-page">
       <h1>Área do Vendedor</h1>
+      {sellerInfo && (
+        <div className="seller-info">
+          <h2>Minha Avaliação: {sellerInfo.averageRating.toFixed(1)} / 5</h2>
+          <div className="ratings-list">
+            {sellerInfo.ratings.length > 0 ? (
+              sellerInfo.ratings.map((rating) => (
+                <div key={rating._id} className="rating-item">
+                  <p>
+                    <strong>Comprador:</strong> {rating.buyer.name}
+                  </p>
+                  <p>
+                    <strong>Avaliação:</strong> {rating.rating} / 5
+                  </p>
+                  {rating.comment && (
+                    <p>
+                      <strong>Comentário:</strong> {rating.comment}
+                    </p>
+                  )}
+                  <p>
+                    <strong>Data:</strong> {new Date(rating.date).toLocaleString()}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p>Você ainda não recebeu avaliações.</p>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="tab-menu">
         <button
-          className={activeTab === "produtos" ? "active" : ""}
-          onClick={() => setActiveTab("produtos")}
+          className={activeTab === 'produtos' ? 'active' : ''}
+          onClick={() => setActiveTab('produtos')}
         >
           Meus Produtos
         </button>
         <button
-          className={activeTab === "propostas" ? "active" : ""}
-          onClick={() => setActiveTab("propostas")}
+          className={activeTab === 'propostas' ? 'active' : ''}
+          onClick={() => setActiveTab('propostas')}
         >
           Propostas
         </button>
       </div>
 
-      {activeTab === "produtos" && (
+      {activeTab === 'produtos' && (
         <div className="product-list">
           {products.length > 0 ? (
             products.map((product) => (
               <div
                 key={product._id}
                 className={`product-card ${
-                  product.stock === 0 ? "out-of-stock" : ""
+                  product.stock === 0 ? 'out-of-stock' : ''
                 }`}
               >
                 <h3>{product.typePart}</h3>
@@ -163,7 +195,7 @@ const VendedorPage = () => {
                   <button
                     onClick={() => {
                       const newStock = prompt(
-                        "Digite a nova quantidade em estoque:",
+                        'Digite a nova quantidade em estoque:',
                         product.stock
                       );
                       if (newStock !== null && !isNaN(newStock)) {
@@ -182,7 +214,7 @@ const VendedorPage = () => {
         </div>
       )}
 
-      {activeTab === "propostas" && (
+      {activeTab === 'propostas' && (
         <div className="proposal-list">
           {proposals.length > 0 ? (
             proposals.map((proposal) => (
@@ -198,7 +230,7 @@ const VendedorPage = () => {
                   <strong>Mensagem:</strong> {proposal.message}
                 </p>
                 <p>
-                  <strong>Data:</strong>{" "}
+                  <strong>Data:</strong>{' '}
                   {new Date(proposal.date).toLocaleString()}
                 </p>
               </div>

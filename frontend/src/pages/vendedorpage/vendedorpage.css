@@ -152,3 +152,22 @@
     color: #666;
     font-size: 0.9em;
 }
+
+
+
+.seller-info {
+    margin-bottom: 20px;
+  }
+  
+  .seller-info h2 {
+    margin-top: 0;
+  }
+  
+  .ratings-list {
+    margin-top: 10px;
+  }
+  
+  .rating-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }

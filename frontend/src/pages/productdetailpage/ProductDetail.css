@@ -140,3 +140,123 @@
 .contact-form button:hover {
     background-color: #c10f30;
 }
+
+
+.seller-ratings {
+    margin-top: 20px;
+  }
+  
+  .ratings-list {
+    margin-top: 10px;
+  }
+  
+  .rating-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+
+  /* Ajuste para melhorar a organização */
+.product-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.product-info h1 {
+    grid-column: span 2;
+    font-size: 2.2em;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.product-info p {
+    font-size: 1.1em;
+    color: #333;
+    margin: 5px 0;
+}
+
+.product-info p strong {
+    font-weight: bold;
+    color: #555;
+}
+
+
+.installments {
+    margin-top: 10px;
+    background-color: #e11138;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.contact-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.contact-form h2 {
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 10px;
+}
+
+.contact-form label {
+    font-weight: 600;
+    color: #555;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e11138;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #c10f30;
+}
+
+/* Botão Comprar Agora */
+.buy-button {
+    width: auto; /* Define o botão para ajustar ao conteúdo */
+    max-width: 200px; /* Define um limite máximo de largura */
+    padding: 12px;
+    background-color: #e11138;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    align-self: center; /* Centraliza o botão dentro do container */
+}
+
+.buy-button:hover {
+    background-color: #c10f30;
+}
