@@ -8,6 +8,7 @@
     max-width: 1200px;
     margin: 0 auto;
     flex-wrap: wrap;
+    padding-top: 120px;
 }
 
 /* Coluna de informações da peça */

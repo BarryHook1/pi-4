@@ -2,6 +2,7 @@
 .search-page {
   display: flex;
   padding: 0;
+  padding-top: 120px;
 }
 
 /* Sidebar com estilo de cartões para cada seção */

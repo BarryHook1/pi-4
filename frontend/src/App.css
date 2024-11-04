@@ -1,3 +1,4 @@
+/* Mantém o estilo atual */
 .App {
   text-align: center;
 }
@@ -35,4 +36,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Estilo para o header fixo */
+.header {
+  width: 100%;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  height: 60px; /* Ajuste conforme a altura do header */
+}
+
+/* Estilo para o container de conteúdo principal */
+.main-content {
+  padding-top: 60px; /* Ajuste o valor para a altura exata do header */
 }

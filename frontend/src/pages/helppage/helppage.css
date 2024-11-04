@@ -3,6 +3,7 @@
   max-width: 900px; /* Aumenta a largura máxima */
   margin: 0 auto;
   padding: 10px 20px; /* Reduz as margens laterais */
+  padding-top: 120px;
   font-family: Arial, sans-serif;
 }
 

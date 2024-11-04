@@ -1,12 +1,25 @@
 /* Estilo para o cabeçalho */
+/* Estilo do header fixo */
 .header {
+    width: 100%;
+    padding: 10px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    padding: 10px 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
+    position: fixed; /* Fixa o header no topo */
+    top: 0;
+    z-index: 1000;
+    height: 60px; /* Ajuste conforme a altura real do header */
+    
+  }
+
+  /* Classe para o conteúdo principal */
+.main-content {
+    padding-top: 60px; /* Correspondente à altura do header */
+  }
+  
 .Logo{
     cursor: pointer;
 }
@@ -76,3 +89,4 @@
     background-color: #f1f1f1;
     color: #e11138;
 }
+
