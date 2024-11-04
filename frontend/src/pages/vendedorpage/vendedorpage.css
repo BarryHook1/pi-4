@@ -97,25 +97,50 @@
 
 .actions button {
     flex: 1;
-    padding: 8px 0;
+    padding: 12px 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
+    border-color: #333;
     font-size: 0.9em;
     cursor: pointer;
-    color: white;
+    color: rgb(0, 0, 0);
     transition: background-color 0.3s ease;
+    font-weight: 525;
 }
 
 .actions button:hover {
     opacity: 0.9;
 }
 
+/* Estilo para o botão Excluir */
 .actions button:first-child {
-    background-color: #e11138; /* Botão Excluir */
+    background-color: #000000; /* Fundo preto */
+    border: 1px solid #ffffff; /* Borda branca */
+    color: white !important;
+    padding: 4px 10px; /* Ajuste de padding para um visual equilibrado */
+    border-radius: 15px; /* Bordas arredondadas para um visual mais suave */
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
+    
 }
 
+.actions button:first-child:hover {
+    background-color: #333333; /* Tom mais claro no hover */
+}
+
+/* Estilo para o botão Atualizar Estoque */
 .actions button:last-child {
-    background-color: #007bff; /* Botão Atualizar Estoque */
+    background-color: #ffffff; /* Fundo branco */
+    border: 1px solid #000000; /* Borda branca */
+    color: #000000; /* Texto preto */
+    padding: 4px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.actions button:last-child:hover {
+    background-color: #f0f0f0; /* Leve mudança de cor no hover */
 }
 
 /* Lista de Propostas */
