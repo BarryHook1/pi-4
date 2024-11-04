@@ -90,3 +90,45 @@
     color: #e11138;
 }
 
+/* Estilo base para os links do header */
+.header .nav ul li {
+    display: inline-block;
+}
+    
+
+.header .nav ul li a {
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+/* Pseudo-elemento para o efeito de animação */
+.header .nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    background: #e11138; /* Cor da linha de animação */
+    transition: width 0.15s ease-in-out, transform 0.15s ease-in-out;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0); /* Começa escondido */
+    transform-origin: left; /* Anima a partir da esquerda */
+}
+
+/* Expande a linha da esquerda para a direita no hover */
+.header .nav ul li a:hover::after {
+    width: 100%; /* Expande a linha para a largura total */
+    transform: scaleX(1); /* Mostra a linha com um efeito suave */
+    transform-origin: left; /* Mantém a origem da animação à esquerda */
+}
+
+
+
+/* Retração da linha na saída do hover */
+.header .nav ul li a::after {
+    transform-origin: left; /* Mantém a retração da esquerda para a direita */
+}
