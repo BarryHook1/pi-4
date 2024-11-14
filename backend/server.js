@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 
 // Carregar variáveis de ambiente
-dotenv.config();
+dotenv.config({ override: false });
 
 // Inicializar o app
 const app = express();
@@ -452,7 +452,13 @@ app.get("/seller/:sellerId", async (req, res) => {
   }
 });
 
-// Iniciar o servidor
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+
+// Iniciar o servidor apenas se não estiver em modo de teste
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = { app, User };
