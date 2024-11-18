@@ -3,353 +3,377 @@
 /* Geral */
 
 .homepage {
-    font-family: 'Poppins', sans-serif;
-    color: #333;
+  font-family: "Poppins", sans-serif;
+  color: #333;
 }
 
-
 .main-section {
-    padding: 0;
-    margin-top: 100px;
+  padding: 0;
+  margin-top: 100px;
 }
 
 .header .header-text a {
-    --tw-text-opacity: 1;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 750;
-    /* Peso ajustado para deixar o texto mais fino */
-    color: #59595e;
-    /* Ajuste para a cor do texto */
-    text-rendering: optimizeLegibility;
-    /* Para garantir a renderização suave do texto */
-    -webkit-font-smoothing: antialiased;
-    /* Para suavizar a fonte no Webkit (Chrome, Safari) */
-    -moz-osx-font-smoothing: grayscale;
-    /* Para suavizar a fonte no Firefox */
+  --tw-text-opacity: 1;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 750;
+  /* Peso ajustado para deixar o texto mais fino */
+  color: #59595e;
+  /* Ajuste para a cor do texto */
+  text-rendering: optimizeLegibility;
+  /* Para garantir a renderização suave do texto */
+  -webkit-font-smoothing: antialiased;
+  /* Para suavizar a fonte no Webkit (Chrome, Safari) */
+  -moz-osx-font-smoothing: grayscale;
+  /* Para suavizar a fonte no Firefox */
 }
 
 .header {
-    --tw-bg-opacity: 1;
-    --tw-text-opacity: 1;
-    --tw-shadow: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
-    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-    box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    height: 4rem;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 40;
-    position: relative;
-    line-height: 1rem;
-    border-bottom-width: 2px;
-    border-color: #0000;
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  --tw-shadow: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color),
+    0 1px 2px -1px var(--tw-shadow-color);
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  height: 4rem;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 40;
+  position: relative;
+  line-height: 1rem;
+  border-bottom-width: 2px;
+  border-color: #0000;
 }
 
 .logo img {
-    max-height: 40px;
-    /* Limite de altura para o logo */
-    width: auto;
-    /* Mantém a proporção da largura */
+  max-height: 45px;
+  /* Limite de altura para o logo */
+  width: auto;
+  /* Mantém a proporção da largura */
 }
 
 .nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav ul li {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .nav ul li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
 }
 
 .login-btn {
-    background-color: #e11138;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 13px;
+  background-color: #e11138;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 13px;
 }
 
 .banner-section {
-    position: relative;
-    height: 400px;
-    /* Altura ajustada para o banner */
-    background: url('./../../assets/bannerteste.png') center/cover no-repeat;
-    z-index: 1;
+  position: relative;
+  height: 400px;
+  /* Altura ajustada para o banner */
+  background: url("./../../assets/bannerteste.png") center/cover no-repeat;
+  z-index: 1;
 }
 
 .banner-section img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Ajusta a imagem ao banner */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ajusta a imagem ao banner */
 }
 
 /* Barra de Pesquisa */
 .search-container {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px; /* Aumenta o arredondamento */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px; /* Aumenta a largura */
-    width: 100%;
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px; /* Aumenta o arredondamento */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px; /* Aumenta a largura */
+  width: 100%;
 }
 
 .search-box {
-    flex-grow: 1;
-    max-width: 100%; /* Garante que o contêiner ocupe 100% */
-    display: flex;
-    align-items: center;
-    position: relative;
+  flex-grow: 1;
+  max-width: 100%; /* Garante que o contêiner ocupe 100% */
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-
 
 .search-input {
-    flex-grow: 4;
-    width: 100%;
-    padding: 15px 20px; /* Padding mais balanceado */
-    border: 1px solid #ddd;
-    border-radius: 10px 10px 10px 10px;
-    font-size: 1.1rem;
-    margin-right: 5px;
-    text-align: left; /* Alinha o texto e o placeholder à esquerda */
+  flex-grow: 4;
+  width: 100%;
+  padding: 15px 20px; /* Padding mais balanceado */
+  border: 1px solid #ddd;
+  border-radius: 10px 10px 10px 10px;
+  font-size: 1.1rem;
+  margin-right: 5px;
+  text-align: left; /* Alinha o texto e o placeholder à esquerda */
 }
-
-
 
 /* Estilo do ícone de busca dentro da caixa de texto */
 .search-icon {
-    position: absolute;
-    left: 15px;
-    /* Coloca o ícone dentro da caixa de texto */
-    font-size: 18px;
-    /* Tamanho do ícone */
-    color: #131010;
-    /* Cor do ícone */
+  position: absolute;
+  left: 15px;
+  /* Coloca o ícone dentro da caixa de texto */
+  font-size: 18px;
+  /* Tamanho do ícone */
+  color: #131010;
+  /* Cor do ícone */
 }
 
-
 .search-btn {
-    background-color: #e11138;
-    color: white;
-    padding: 10px 20px; /* Diminui o padding para o botão */
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    flex-grow: 2; /* Reduz o espaço ocupado pelo botão */
-    max-width: 300px; /* Limita a largura máxima do botão */
+  background-color: #e11138;
+  color: white;
+  padding: 10px 20px; /* Diminui o padding para o botão */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  flex-grow: 2; /* Reduz o espaço ocupado pelo botão */
+  max-width: 300px; /* Limita a largura máxima do botão */
 }
 
 .background-container {
-    background-color: #ecedf2;
-    width: 100%;
-    padding-top: 20px;
-    /* Ajuste de acordo com o necessário */
-    padding-bottom: 20px;
-    /* Ajuste de acordo com o necessário */
+  background-color: #ecedf2;
+  width: 100%;
+  padding-top: 20px;
+  /* Ajuste de acordo com o necessário */
+  padding-bottom: 20px;
+  /* Ajuste de acordo com o necessário */
 }
 
 /* Lojas Oficiais */
 .official-stores {
-    background-color: #ecedf2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 80%;
-    /* Mesmo tamanho da seção de busca */
-    margin: 0 auto;
-    /* Centraliza a seção */
-    margin-top: 40px;
-    /* Margem entre a barra de pesquisa e a seção de lojas */
-    padding: 20px;
-    border-radius: 12px;
+  background-color: #ecedf2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 80%;
+  /* Mesmo tamanho da seção de busca */
+  margin: 0 auto;
+  /* Centraliza a seção */
+  margin-top: 40px;
+  /* Margem entre a barra de pesquisa e a seção de lojas */
+  padding: 20px;
+  border-radius: 12px;
 }
 
 .official-stores h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: rgb(105, 105, 119);
-    text-align: match-parent;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: rgb(105, 105, 119);
+  text-align: match-parent;
 }
 
 .store-logos {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .store-logos img {
-    max-width: 100px;
-    border-radius: 50%;
-    padding: 10px;
-    width: 80px;
-    height: 80px;
+  max-width: 100px;
+  border-radius: 50%;
+  padding: 10px;
+  width: 80px;
+  height: 80px;
 }
 
 /* Peças Populares */
 .popular-items {
-    background-color: #ecedf2;
-    text-align: left;
-    padding: 40px;
-    line-height: 1.2;
+  background-color: #ecedf2;
+  text-align: left;
+  padding: 40px;
+  line-height: 1.2;
 }
 
 .popular-items h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: rgb(105, 105, 119);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: rgb(105, 105, 119);
 }
 
 .item-grid {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .item-card {
-    max-width: 150px;
-    border: 1px solid #ddd;
-    border-radius: 13px;
-    text-align: center;
-    padding: 20px;
+  max-width: 150px;
+  border: 1px solid #ddd;
+  border-radius: 13px;
+  text-align: center;
+  padding: 20px;
 }
 
 .item-card img {
-    max-width: 100px;
-    border-radius: 50%;
-    padding: 10px;
-    width: 80px;
-    height: 80px;
+  max-width: 100px;
+  border-radius: 50%;
+  padding: 10px;
+  width: 80px;
+  height: 80px;
 }
 
 /* Estilos para o menu dropdown do vendedor */
 .user-menu {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .profile-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
 }
 
 .dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 100px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .dropdown-content button {
-    color: black;
-    padding: 8px 12px;
-    text-decoration: none;
-    display: block;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 
 .dropdown-content button:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
 /* Estilos para a lista de sugestões */
 .suggestions-list {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    max-height: 150px;
-    overflow-y: auto;
-    width: calc(100% - 310px); /* Ajusta para ter a mesma largura do input, considerando o padding */
-    top: 100%; /* Posiciona logo abaixo do input */
-    z-index: 1000;
-    border-radius: 5px;
-    margin-top: 5px;
-    left: 0;
-    padding: 0; /* Remove o padding padrão */
-    box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  max-height: 150px;
+  overflow-y: auto;
+  width: calc(
+    100% - 310px
+  ); /* Ajusta para ter a mesma largura do input, considerando o padding */
+  top: 100%; /* Posiciona logo abaixo do input */
+  z-index: 1000;
+  border-radius: 5px;
+  margin-top: 5px;
+  left: 0;
+  padding: 0; /* Remove o padding padrão */
+  box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
 }
 
 .suggestions-list ul {
-    list-style-type: none; /* Remove as bolinhas (bullets) */
-    margin: 0;
-    padding: 0;
+  list-style-type: none; /* Remove as bolinhas (bullets) */
+  margin: 0;
+  padding: 0;
 }
 
 .suggestions-list li {
-    padding: 8px;
-    cursor: pointer;
-    text-align: left; /* Alinha o texto à esquerda */
-    font-size: 16px; /* Aumenta o tamanho da fonte */
-    font-weight: bold; /* Aplica negrito */
-    border-bottom: 1px solid #ddd; /* Adiciona uma linha fina abaixo de cada item */
+  padding: 8px;
+  cursor: pointer;
+  text-align: left; /* Alinha o texto à esquerda */
+  font-size: 16px; /* Aumenta o tamanho da fonte */
+  font-weight: bold; /* Aplica negrito */
+  border-bottom: 1px solid #ddd; /* Adiciona uma linha fina abaixo de cada item */
 }
 
 .suggestions-list li:last-child {
-    border-bottom: none; /* Remove a linha abaixo do último item */
+  border-bottom: none; /* Remove a linha abaixo do último item */
 }
 
 .suggestions-list li:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 /* Estilos para separar marcas e modelos */
 .suggestions-section {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .suggestions-section h4 {
-    margin: 8px 0 4px 8px;
-    font-size: 14px;
-    color: #888;
-    font-weight: normal;
-    border-bottom: 1px solid #ddd; /* Adiciona uma linha fina abaixo do título da seção */
-    padding-bottom: 4px;
+  margin: 8px 0 4px 8px;
+  font-size: 14px;
+  color: #888;
+  font-weight: normal;
+  border-bottom: 1px solid #ddd; /* Adiciona uma linha fina abaixo do título da seção */
+  padding-bottom: 4px;
 }
 
 .suggestions-section ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  background-color: #333;
+  color: #fff;
+  padding: 2px 10px;
+  text-align: center;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
 }

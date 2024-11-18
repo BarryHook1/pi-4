@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import './login.css'; // Importe o arquivo CSS
+import React, { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import "./login.css"; // Importe o arquivo CSS
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
@@ -25,14 +25,14 @@ const LoginPage = () => {
         // Chamar a função `login` do AuthContext
         login(name, vendedor, userId);
 
-        // Navegar para a página inicial ou outra página
-        navigate('/');
+        // Navegar para a página inicial
+        navigate("/");
       } else {
         alert(`Erro ao fazer login: ${data.message}`);
       }
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
-      alert('Erro ao fazer login. Por favor, tente novamente.');
+      console.error("Erro ao fazer login:", error);
+      alert("Erro ao fazer login. Por favor, tente novamente.");
     }
   };
 

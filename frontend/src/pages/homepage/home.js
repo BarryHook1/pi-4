@@ -1,7 +1,7 @@
 // home.js
 import React, { useState } from "react";
 import "./home.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import bmwLogo from "../../assets/bmw.webp";
 import bydLogo from "../../assets/byd.webp";
 import chevroletLogo from "../../assets/chevrolet.webp";
@@ -108,6 +108,22 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* homepage footer */}
+      <footer className="footer">
+        <p>&copy; 2024 WebPeças. Todos os direitos reservados.</p>
+        <ul className="footer-links">
+          <li>
+            <a href="/about">Sobre Nós</a>
+          </li>
+          <li>
+            <a href="/contact">Contato</a>
+          </li>
+          <li>
+            <a href="/terms">Termos de Uso</a>
+          </li>
+        </ul>
+      </footer>
     </div>
   );
 };
