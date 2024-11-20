@@ -4,8 +4,11 @@ from bson.objectid import ObjectId
 
 # IDs dos vendedores (substitua pelos IDs reais)
 seller_ids = [
-    ObjectId("6735f11d8f55c6a1a99781db"),
-
+    ObjectId("67217ebd82bf91cb6d5ad7df"),
+    ObjectId("671a76b8c4b1b2ae753e99e9"),
+    ObjectId("671a45fa273f1130cfa4fe76"),
+    ObjectId("671a3497b95fd2e609fafe15"),
+    ObjectId("67193a390ef3926db6aaf8d6"),
 ]
 
 # Conectar ao MongoDB usando o MONGO_URI fornecido
@@ -433,7 +436,7 @@ def generate_random_product():
     return product
 
 # Gerar e inserir produtos
-num_products = 20  # Defina quantos produtos deseja gerar
+num_products = 33  # Defina quantos produtos deseja gerar
 
 products_to_insert = [generate_random_product() for _ in range(num_products)]
 
