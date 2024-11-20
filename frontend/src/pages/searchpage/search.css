@@ -80,8 +80,10 @@
   /* Compensa o padding da .sidebar */
   margin-left: -20px; /* Margem negativa igual ao padding esquerdo da .sidebar */
   margin-right: -20px; /* Margem negativa igual ao padding direito da .sidebar */
-  width: calc(100% + 40px); /* Aumenta a largura para compensar as margens negativas */
-  
+  width: calc(
+    100% + 40px
+  ); /* Aumenta a largura para compensar as margens negativas */
+
   box-sizing: border-box;
 }
 .clear-button {
@@ -141,6 +143,7 @@
   border: 1px solid #ddd;
   padding: 15px;
   width: 300px;
+  height: 280px; /* Altura fixa para padronizar */
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -155,6 +158,9 @@
 .product-card h3 {
   margin-top: 0;
   font-size: 1.5em;
+  white-space: nowrap; /* Impede quebra de linha */
+  overflow: hidden; /* Esconde texto excedente */
+  text-overflow: ellipsis; /* Adiciona "..." no texto excedente */
   color: #333;
 }
 
@@ -162,6 +168,11 @@
   margin: 5px 0;
   color: #666;
   font-size: 0.9em;
+  overflow: hidden; /* Esconde o texto excedente */
+  text-overflow: ellipsis; /* Adiciona "..." no texto excedente */
+  display: -webkit-box; /* Para múltiplas linhas */
+  -webkit-box-orient: vertical; /* Necessário para o clamp */
+  -webkit-line-clamp: 2; /* Ajuste este valor para o número máximo de linhas desejadas */
 }
 
 /* Animações para modelos */

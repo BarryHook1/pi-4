@@ -1,9 +1,9 @@
 // Header.js
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import './header.css';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import "./header.css";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,25 +11,25 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   const handleSellClick = () => {
     if (isVendedor) {
-      navigate('/sellpage');
+      navigate("/sellpage");
     } else {
-      alert('Você precisa ser um vendedor para acessar esta página.');
+      alert("Você precisa ser um vendedor para acessar esta página.");
     }
   };
 
   const handleProfileClick = () => {
-    navigate('/vendedorpage');
+    navigate("/vendedorpage");
   };
 
   return (
     // Removemos a condição e aplicamos a classe 'fixed-header' diretamente
     <header className="header fixed-header">
-      <div className="logo" onClick={() => navigate('/')}>
+      <div className="logo" onClick={() => navigate("/")}>
         <img src={logo} alt="Logo" />
       </div>
       <nav className="nav">
@@ -74,7 +74,7 @@ const Header = () => {
             )}
           </div>
         ) : (
-          <button className="login-btn" onClick={() => navigate('/login')}>
+          <button className="login-btn" onClick={() => navigate("/login")}>
             Entrar
           </button>
         )}

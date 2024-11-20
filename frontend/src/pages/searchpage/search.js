@@ -604,28 +604,28 @@ const SearchPage = () => {
                   {/* Aqui você pode exibir as informações do produto */}
                   <h3>{product.typePart}</h3>
                   <p>
-                    <strong>Marca do Carro:</strong> {product.carBrand}
+                    <strong>Marca do Carro: </strong> {product.carBrand}
                   </p>
                   <p>
-                    <strong>Modelo do Carro:</strong> {product.carModel}
+                    <strong>Modelo do Carro: </strong> {product.carModel}
                   </p>
                   <p>
-                    <strong>Ano:</strong> {product.yearFrom} - {product.yearTo}
+                    <strong>Ano: </strong> {product.yearFrom} - {product.yearTo}
                   </p>
                   <p>
-                    <strong>Condição:</strong> {product.condition}
+                    <strong>Condição: </strong> {product.condition}
                   </p>
                   <p>
-                    <strong>Descrição:</strong> {product.description}
+                    <strong>Descrição: </strong> {product.description}
                   </p>
                   <p>
-                    <strong>Quantidade em Estoque:</strong> {product.stock}
+                    <strong>Quantidade em Estoque: </strong> {product.stock}
                   </p>
                   <p>
-                    <strong>Vendedor:</strong> {product.vendedor.name}
+                    <strong>Vendedor: </strong> {product.vendedor.name}
                   </p>
                   <p>
-                    <strong>Preço:</strong> {product.price}
+                    <strong>Preço: </strong> {product.price}
                   </p>
                 </div>
               </Link>

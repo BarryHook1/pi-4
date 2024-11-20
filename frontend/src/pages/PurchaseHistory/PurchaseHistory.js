@@ -1,14 +1,14 @@
 // PurchaseHistory.js
-import React, { useState, useEffect, useContext } from 'react';
-import './PurchaseHistory.css';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useState, useEffect, useContext } from "react";
+import "./PurchaseHistory.css";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const PurchaseHistory = () => {
   const { userId } = useContext(AuthContext);
   const [purchases, setPurchases] = useState([]);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     fetchPurchases();
@@ -21,7 +21,7 @@ const PurchaseHistory = () => {
       const data = await response.json();
       setPurchases(data);
     } catch (error) {
-      console.error('Erro ao buscar compras:', error);
+      console.error("Erro ao buscar compras:", error);
     }
   };
 
@@ -31,13 +31,13 @@ const PurchaseHistory = () => {
 
   const submitRating = async () => {
     if (rating < 1 || rating > 5) {
-      alert('Por favor, selecione uma avaliação entre 1 e 5 estrelas.');
+      alert("Por favor, selecione uma avaliação entre 1 e 5 estrelas.");
       return;
     }
     try {
-      const response = await fetch('http://localhost:8080/rateSeller', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:8080/rateSeller", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sellerId: selectedPurchase.product.vendedor._id,
           buyerId: userId,
@@ -47,15 +47,15 @@ const PurchaseHistory = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert('Avaliação enviada com sucesso.');
+        alert("Avaliação enviada com sucesso.");
         setSelectedPurchase(null);
         setRating(0);
-        setComment('');
+        setComment("");
       } else {
         alert(`Erro ao enviar avaliação: ${data.message}`);
       }
     } catch (error) {
-      console.error('Erro ao enviar avaliação:', error);
+      console.error("Erro ao enviar avaliação:", error);
     }
   };
 
@@ -68,7 +68,8 @@ const PurchaseHistory = () => {
             <div key={purchase._id} className="purchase-card">
               <h3>{purchase.product.typePart}</h3>
               <p>
-                <strong>Data:</strong> {new Date(purchase.date).toLocaleString()}
+                <strong>Data:</strong>{" "}
+                {new Date(purchase.date).toLocaleString()}
               </p>
               <p>
                 <strong>Método de Pagamento:</strong> {purchase.paymentMethod}
@@ -76,7 +77,9 @@ const PurchaseHistory = () => {
               <p>
                 <strong>Preço:</strong> R$ {purchase.product.price.toFixed(2)}
               </p>
-              <button onClick={() => handleRate(purchase)}>Avaliar Vendedor</button>
+              <button onClick={() => handleRate(purchase)}>
+                Avaliar Vendedor
+              </button>
             </div>
           ))}
         </div>
@@ -93,7 +96,7 @@ const PurchaseHistory = () => {
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
-                  className={star <= rating ? 'star selected' : 'star'}
+                  className={star <= rating ? "star selected" : "star"}
                   onClick={() => setRating(star)}
                 >
                   ★

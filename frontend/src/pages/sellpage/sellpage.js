@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./sellpage.css";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const carBrandsWithModels = {
   Chevrolet: [
