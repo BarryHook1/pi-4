@@ -405,6 +405,22 @@ const SearchPage = () => {
     }
   }, [location.state]);
 
+  const [expandedCategories, setExpandedCategories] = useState({
+    brand: true, // Marca está aberta inicialmente
+    model: false,
+    condition: true,
+    ...Object.keys(partCategories).reduce((acc, category) => {
+      acc[category] = false; // Todas as outras categorias iniciam fechadas
+      return acc;
+    }, {}),
+  });
+  const toggleCategory = (category) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [category]: !prev[category], // Inverte o estado da categoria clicada
+    }));
+  };
+
   // Função para buscar os produtos do backend
   const fetchProducts = async () => {
     try {
@@ -475,9 +491,22 @@ const SearchPage = () => {
     <div className="search-page">
       {/* Sidebar */}
       <div className="sidebar">
-        <h2>Marcas de Carro</h2>
-        <div className="car-brands">
-          {selectedBrand === "" ? (
+        {/* Marcas de Carro */}
+        <h2
+          onClick={() => toggleCategory("brand")}
+          className={`clickable-header ${
+            expandedCategories.brand ? "" : "collapsed"
+          }`}
+        >
+          Marcas de Carro
+          <span
+            className={`arrow ${expandedCategories.brand ? "down" : "right"}`}
+          >
+            ▼
+          </span>
+        </h2>
+        {expandedCategories.brand &&
+          (selectedBrand === "" ? (
             Object.keys(carBrandsWithModels).map((brand) => (
               <label key={brand}>
                 <input
@@ -501,9 +530,9 @@ const SearchPage = () => {
               />
               {selectedBrand}
             </label>
-          )}
-        </div>
+          ))}
 
+        {/* Modelos de Carro */}
         {selectedBrand && (
           <div className="car-models">
             <h2>Modelos</h2>
@@ -537,50 +566,90 @@ const SearchPage = () => {
           </div>
         )}
 
-        <h2>Peças Novas ou Usadas</h2>
-        <div className="part-condition">
-          <label>
-            <input
-              type="checkbox"
-              value="nova"
-              data-filter-type="condition"
-              onChange={handleFilterChange}
-              checked={selectedCondition.includes("nova")}
-            />{" "}
-            Novas
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="usada"
-              data-filter-type="condition"
-              onChange={handleFilterChange}
-              checked={selectedCondition.includes("usada")}
-            />{" "}
-            Usadas
-          </label>
-        </div>
+        {/* Estado da Peça */}
+        <h2
+          onClick={() => toggleCategory("condition")}
+          className={`clickable-header ${
+            expandedCategories.condition ? "" : "collapsed"
+          }`}
+        >
+          Peças Novas ou Usadas
+          <span
+            className={`arrow ${
+              expandedCategories.condition ? "down" : "right"
+            }`}
+          >
+            ▼
+          </span>
+        </h2>
+        {expandedCategories.condition && (
+          <div className="part-condition">
+            <label>
+              <input
+                type="checkbox"
+                value="nova"
+                data-filter-type="condition"
+                onChange={handleFilterChange}
+                checked={selectedCondition.includes("nova")}
+              />{" "}
+              Novas
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="usada"
+                data-filter-type="condition"
+                onChange={handleFilterChange}
+                checked={selectedCondition.includes("usada")}
+              />{" "}
+              Usadas
+            </label>
+          </div>
+        )}
 
-        <h2>Peças</h2>
-        <div className="part-categories">
-          {Object.keys(partCategories).map((category) => (
-            <div key={category}>
-              <h3>{category}</h3>
-              {partCategories[category].map((part) => (
-                <label key={part}>
-                  <input
-                    type="checkbox"
-                    value={part}
-                    data-filter-type="part"
-                    onChange={handleFilterChange}
-                    checked={selectedParts.includes(part)}
-                  />
-                  {part}
-                </label>
-              ))}
-            </div>
-          ))}
-        </div>
+        {/* Tipo de Peça */}
+        <h2
+          onClick={() => toggleCategory("parts")}
+          className={`clickable-header ${
+            expandedCategories.parts ? "" : "collapsed"
+          }`}
+        >
+          Tipo de Peça
+          <span
+            className={`arrow ${expandedCategories.parts ? "down" : "right"}`}
+          >
+            ▼
+          </span>
+        </h2>
+        {expandedCategories.parts ? (
+          <div className="part-categories">
+            {Object.keys(partCategories).map((category) => (
+              <div key={category}>
+                <h3>{category}</h3>
+                {partCategories[category].map((part) => (
+                  <label key={part}>
+                    <input
+                      type="checkbox"
+                      value={part}
+                      data-filter-type="part"
+                      onChange={handleFilterChange}
+                      checked={selectedParts.includes(part)}
+                    />
+                    {part}
+                  </label>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="selected-parts">
+            {selectedParts.length > 0 ? (
+              selectedParts.map((part) => <span key={part}>{part}</span>)
+            ) : (
+              <p>Nenhum item selecionado</p>
+            )}
+          </div>
+        )}
 
         <div className="clear-button-container">
           <button type="button" className="clear-button" onClick={clearFilters}>
@@ -625,7 +694,7 @@ const SearchPage = () => {
                     <strong>Vendedor: </strong> {product.vendedor.name}
                   </p>
                   <p>
-                    <strong>Preço: </strong> {product.price}
+                    <strong>Preço: </strong> R$ {product.price}
                   </p>
                 </div>
               </Link>
