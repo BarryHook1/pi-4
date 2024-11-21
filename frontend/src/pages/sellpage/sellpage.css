@@ -34,7 +34,7 @@
   line-height: 150%;
   letter-spacing: 6.5px;
   word-spacing: 10px; /* Adiciona 2px entre palavras */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra deslocada 2px */
+  text-shadow: 8px 15px 7px rgba(0, 0, 0, 0.5); /* Sombra deslocada 2px */
 }
 
 .sell-page-banner p {
