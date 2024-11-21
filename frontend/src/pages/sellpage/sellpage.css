@@ -94,26 +94,27 @@
   font-size: 1.1rem;
 }
 
-/* Campos de input e seleção */
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 14px;
-  font-size: 1rem;
-  border: 1px solid #dddddd;
-  border-radius: 6px;
-  background-color: #f3f3f3;
-  transition: border-color 0.3s, background-color 0.3s;
+.form-group select {
+  appearance: none; /* Remove o estilo padrão do navegador */
+  -webkit-appearance: none; /* Compatibilidade com Safari */
+  -moz-appearance: none; /* Compatibilidade com Firefox */
+  background-color: #f3f3f3; /* Fundo cinza claro */
+  border: 1px solid #cccccc; /* Borda discreta */
+  border-radius: 6px; /* Bordas arredondadas */
+  padding: 10px 14px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  color: #333; /* Cor do texto */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23CCCCCC" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #0056b3;
-  background-color: #ffffff;
-  outline: none;
-  box-shadow: 0 0 6px rgba(0, 86, 179, 0.2);
+.form-group select:focus {
+  border-color: #0056b3; /* Destaque azul ao focar */
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.2); /* Sombra azul */
+  outline: none; /* Remove o outline padrão */
 }
 
 textarea {
@@ -148,7 +149,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #c10f30;
-  transform: scale(1.02);
+  transform: scale(1.06);
 }
 
 button[type="submit"]:active {
