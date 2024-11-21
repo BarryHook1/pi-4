@@ -13,6 +13,10 @@
   margin-top: 110px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
 }
+.sell-page:hover .sell-page-banner {
+  background-color: rgb(172, 14, 43); /* Escurece o fundo do banner */
+  transition: background-color 0.3s ease; /* Transição suave */
+}
 
 .sell-page-banner {
   flex: 0 0 30%; /* O banner ocupa 30% da largura */
@@ -35,6 +39,8 @@
   letter-spacing: 6.5px;
   word-spacing: 10px; /* Adiciona 2px entre palavras */
   text-shadow: 8px 15px 7px rgba(0, 0, 0, 0.5); /* Sombra deslocada 2px */
+  background-color: rgb(207, 15, 51); /* Cor padrão */
+  transition: background-color 0.3s ease; /* Transição suave */
 }
 
 .sell-page-banner p {
