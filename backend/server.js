@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+const { upload, uploadToCloudinary } = require("./cloudinaryConfig");
+
+const cloudinary = require("cloudinary").v2;
 
 // Carregar variáveis de ambiente
 dotenv.config();
@@ -21,6 +24,13 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB conectado"))
   .catch((err) => console.error("Erro ao conectar ao MongoDB:", err));
+
+// Configuração de armazenamento no Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Definir esquema de produto
 const productSchema = new mongoose.Schema({
@@ -52,7 +62,11 @@ const userSchema = new mongoose.Schema({
   ratings: {
     type: [
       {
-        buyer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        buyer: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
         rating: { type: Number, required: true, min: 1, max: 5 },
         comment: { type: String, maxlength: 500 },
         date: { type: Date, default: Date.now },
@@ -73,6 +87,27 @@ userSchema.virtual("averageRating").get(function () {
 userSchema.set("toJSON", { virtuals: true });
 
 const User = mongoose.model("User", userSchema);
+
+// Rota para upload de imagens
+// Rota de upload usando `cloudinary.uploader.upload`
+app.post("/upload", upload.single("image"), uploadToCloudinary, (req, res) => {
+  try {
+    console.log("Requisição de upload recebida.");
+
+    // Verifica se o arquivo foi processado
+    if (!req.file) {
+      console.warn("Nenhum arquivo foi enviado na requisição.");
+      return res.status(400).json({ message: "Nenhum arquivo enviado." });
+    }
+
+    // Após upload bem-sucedido
+    console.log("Imagem enviada com sucesso para o Cloudinary.");
+    res.status(200).json({ url: req.file.url });
+  } catch (error) {
+    console.error("Erro ao fazer upload da imagem:", error.message);
+    res.status(500).json({ message: "Erro ao fazer upload da imagem." });
+  }
+});
 
 // Rota de login
 app.post("/login", async (req, res) => {
@@ -323,7 +358,11 @@ app.get("/vendedor/proposals/:sellerId", async (req, res) => {
 
 // Definir esquema de compra
 const purchaseSchema = new mongoose.Schema({
-  product: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+    required: true,
+  },
   buyer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   paymentMethod: { type: String, required: true },
   date: { type: Date, default: Date.now },
@@ -392,19 +431,23 @@ app.post("/rateSeller", async (req, res) => {
     }
 
     if (rating < 1 || rating > 5) {
-      return res.status(400).json({ message: "A avaliação deve ser entre 1 e 5." });
+      return res
+        .status(400)
+        .json({ message: "A avaliação deve ser entre 1 e 5." });
     }
 
     // Verificar se o comprador já comprou algo do vendedor
     const purchases = await Purchase.find({
       buyer: buyerId,
-      product: { $in: await Product.find({ vendedor: sellerId }).select("_id") },
+      product: {
+        $in: await Product.find({ vendedor: sellerId }).select("_id"),
+      },
     });
 
     if (purchases.length === 0) {
-      return res
-        .status(403)
-        .json({ message: "Você não pode avaliar um vendedor com quem não comprou." });
+      return res.status(403).json({
+        message: "Você não pode avaliar um vendedor com quem não comprou.",
+      });
     }
 
     // Verificar se o comprador já avaliou este vendedor
@@ -414,7 +457,9 @@ app.post("/rateSeller", async (req, res) => {
     });
 
     if (existingRating) {
-      return res.status(400).json({ message: "Você já avaliou este vendedor." });
+      return res
+        .status(400)
+        .json({ message: "Você já avaliou este vendedor." });
     }
 
     // Adicionar a nova avaliação

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./sellpage.css";
 import { AuthContext } from "../../hooks/AuthContext";
+import ImageUpload from "../../components/imageUpload";
 
 const carBrandsWithModels = {
   Chevrolet: [
@@ -396,6 +397,7 @@ const SellPage = () => {
 
   //validação dos campos
   const [errors, setErrors] = useState({});
+  const [image, setImage] = useState("");
 
   const validateForm = () => {
     const newErrors = {};
@@ -700,6 +702,8 @@ const SellPage = () => {
               <p className="error-message">{errors.description}</p>
             )}
           </div>
+
+          <ImageUpload setImage={setImage} />
 
           <button type="submit">Adicionar ao Estoque</button>
         </form>
