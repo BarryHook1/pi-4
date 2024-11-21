@@ -405,15 +405,17 @@ const SearchPage = () => {
     }
   }, [location.state]);
 
+  //lida com estados de janelas inicialmente retraídas
   const [expandedCategories, setExpandedCategories] = useState({
     brand: true, // Marca está aberta inicialmente
     model: false,
-    condition: true,
+    condition: true, //condição está inicialmente aberta
     ...Object.keys(partCategories).reduce((acc, category) => {
       acc[category] = false; // Todas as outras categorias iniciam fechadas
       return acc;
     }, {}),
   });
+  //alterna entre estado fechado e aberto da aba de filtro
   const toggleCategory = (category) => {
     setExpandedCategories((prev) => ({
       ...prev,

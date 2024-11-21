@@ -29,7 +29,7 @@ const Header = () => {
   return (
     // Removemos a condição e aplicamos a classe 'fixed-header' diretamente
     <header className="header fixed-header">
-      <div className="logo" onClick={() => navigate("/")}>
+      <div className="Logo" onClick={() => navigate("/")}>
         <img src={logo} alt="Logo" />
       </div>
       <nav className="nav">

@@ -20,4 +20,9 @@ root.render(
   </React.StrictMode>
 );
 
+// Registrar métricas do Web Vitals e exibir no console
+reportWebVitals((metric) => {
+  console.log(metric); // Loga as métricas no console
+});
+
 reportWebVitals();
