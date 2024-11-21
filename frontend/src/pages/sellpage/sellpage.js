@@ -516,183 +516,194 @@ const SellPage = () => {
 
   return (
     <div className="sell-page">
-      <h1>Adicionar Peças ao Estoque</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Categoria de Peça:</label>
-          <select
-            value={typeCategory}
-            onChange={(e) => setTypeCategory(e.target.value)}
-            required
-          >
-            <option value="">Selecione a categoria</option>
-            {Object.keys(partCategories).map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          {/* Campo de entrada para "Outro" */}
-          {typeCategory === "Outro" && (
-            <div className="form-group-person">
-              <label>Especifique a categoria:</label>
-              <input
-                type="text"
-                value={customPart}
-                onChange={(e) => setCustomPart(e.target.value)}
+      <div className="sell-page-banner">
+        <p>Conectando pessoas, peça por peça</p>
+      </div>
+      <div className="sell-page-form">
+        <form onSubmit={handleSubmit}>
+          <h1>Adicionar Peças ao Estoque</h1>
+          <div className="form-group">
+            <label>Categoria de Peça:</label>
+            <select
+              value={typeCategory}
+              onChange={(e) => setTypeCategory(e.target.value)}
+              required
+            >
+              <option value="">Selecione a categoria</option>
+              {Object.keys(partCategories).map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            {/* Campo de entrada para "Outro" */}
+            {typeCategory === "Outro" && (
+              <div className="form-group-person">
+                <label>Especifique a categoria:</label>
+                <input
+                  type="text"
+                  value={customPart}
+                  onChange={(e) => setCustomPart(e.target.value)}
+                  required
+                />
+                {errors.customPart && (
+                  <p className="error-message">{errors.customPart}</p>
+                )}
+              </div>
+            )}
+          </div>
+          {typeCategory && typeCategory !== "Outro" && (
+            <div className="form-group">
+              <label>Tipo de Peça:</label>
+              <select
+                value={typePart}
+                onChange={(e) => setTypePart(e.target.value)}
                 required
-              />
-              {errors.customPart && (
-                <p className="error-message">{errors.customPart}</p>
-              )}
+              >
+                <option value="">Selecione o tipo de peça</option>
+                {partCategories[typeCategory]?.map((part, index) => (
+                  <option key={index} value={part}>
+                    {part}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
-        </div>
-        {typeCategory && typeCategory !== "Outro" && (
+
           <div className="form-group">
-            <label>Tipo de Peça:</label>
-            <select
-              value={typePart}
-              onChange={(e) => setTypePart(e.target.value)}
+            <label>Quantidade no Estoque:</label>
+            <input
+              type="number"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
               required
-            >
-              <option value="">Selecione o tipo de peça</option>
-              {partCategories[typeCategory]?.map((part, index) => (
-                <option key={index} value={part}>
-                  {part}
+            />
+            {errors.stock && <p className="error-message">{errors.stock}</p>}
+          </div>
+
+          <div className="form-group">
+            <label>Marca do Carro:</label>
+            <select value={carBrand} onChange={handleCarBrandChange} required>
+              <option value="">Selecione a marca</option>
+              {Object.keys(carBrandsWithModels).map((brand) => (
+                <option key={brand} value={brand}>
+                  {brand}
                 </option>
               ))}
             </select>
           </div>
-        )}
 
-        <div className="form-group">
-          <label>Quantidade no Estoque:</label>
-          <input
-            type="number"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            required
-          />
-          {errors.stock && <p className="error-message">{errors.stock}</p>}
-        </div>
+          {carBrand && (
+            <div className="form-group">
+              <label>Modelo do Carro:</label>
+              <select
+                value={carModel}
+                onChange={(e) => setCarModel(e.target.value)}
+                required
+              >
+                <option value="">Selecione o modelo</option>
+                {carBrandsWithModels[carBrand].map((model, index) => (
+                  <option key={index} value={model}>
+                    {model}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
-        <div className="form-group">
-          <label>Marca do Carro:</label>
-          <select value={carBrand} onChange={handleCarBrandChange} required>
-            <option value="">Selecione a marca</option>
-            {Object.keys(carBrandsWithModels).map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {carBrand && (
           <div className="form-group">
-            <label>Modelo do Carro:</label>
-            <select
-              value={carModel}
-              onChange={(e) => setCarModel(e.target.value)}
-              required
-            >
-              <option value="">Selecione o modelo</option>
-              {carBrandsWithModels[carBrand].map((model, index) => (
-                <option key={index} value={model}>
-                  {model}
-                </option>
-              ))}
-            </select>
+            <label>Ano dos Modelos:</label>
+            <div className="year-inputs">
+              <input
+                type="number"
+                placeholder="de"
+                value={yearFrom}
+                pattern="^(188[6-9]|18[9-9]\d|19\d{2}|20[0-9]{2}|20\d{2}|21[0-4]\d)$"
+                title={`Insira um ano válido entre 1886 e ${new Date().getFullYear()}`}
+                onChange={(e) => setYearFrom(e.target.value)}
+                required
+              />
+              <input
+                type="number"
+                placeholder="até"
+                value={yearTo}
+                pattern="^(188[6-9]|18[9-9]\d|19\d{2}|20[0-9]{2}|20\d{2}|21[0-4]\d)$"
+                title={`Insira um ano válido entre 1886 e ${new Date().getFullYear()}`}
+                onChange={(e) => setYearTo(e.target.value)}
+                required
+              />
+            </div>
+            {errors.yearFrom && (
+              <p className="error-message">{errors.yearFrom}</p>
+            )}
+            {errors.yearTo && <p className="error-message">{errors.yearTo}</p>}
           </div>
-        )}
 
-        <div className="form-group">
-          <label>Ano dos Modelos:</label>
-          <div className="year-inputs">
+          <div className="form-group">
+            <label>Condição:</label>
+            <div class="radio-group">
+              <input
+                type="radio"
+                id="novo"
+                name="condition"
+                value="novo"
+                onchange="setCondition('novo')"
+              />
+              <label for="novo">Novo</label>
+
+              <input
+                type="radio"
+                id="seminovo"
+                name="condition"
+                value="seminovo"
+                onchange="setCondition('seminovo')"
+              />
+              <label for="seminovo">Seminovo</label>
+
+              <input
+                type="radio"
+                id="usado"
+                name="condition"
+                value="usado"
+                onchange="setCondition('usado')"
+              />
+              <label for="usado">Usado</label>
+            </div>
+            {errors.condition && (
+              <p className="error-message">{errors.condition}</p>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label>Preço:</label>
             <input
               type="number"
-              placeholder="de"
-              value={yearFrom}
-              onChange={(e) => setYearFrom(e.target.value)}
+              step="0.01"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              pattern="^\d+(\.\d{1,2})?$"
+              title="Insira um preço válido, ex: 123 ou 123.45"
               required
             />
-            <input
-              type="number"
-              placeholder="até"
-              value={yearTo}
-              onChange={(e) => setYearTo(e.target.value)}
+            {errors.price && <p className="error-message">{errors.price}</p>}
+          </div>
+
+          <div className="form-group">
+            <label>Breve Descrição (máximo de 200 palavras):</label>
+            <textarea
+              maxLength="200"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
-            />
+            ></textarea>
+            {errors.description && (
+              <p className="error-message">{errors.description}</p>
+            )}
           </div>
-          {errors.yearFrom && (
-            <p className="error-message">{errors.yearFrom}</p>
-          )}
-          {errors.yearTo && <p className="error-message">{errors.yearTo}</p>}
-        </div>
 
-        <div className="form-group">
-          <label>Condição:</label>
-          <div class="radio-group">
-            <input
-              type="radio"
-              id="novo"
-              name="condition"
-              value="novo"
-              onchange="setCondition('novo')"
-            />
-            <label for="novo">Novo</label>
-
-            <input
-              type="radio"
-              id="seminovo"
-              name="condition"
-              value="seminovo"
-              onchange="setCondition('seminovo')"
-            />
-            <label for="seminovo">Seminovo</label>
-
-            <input
-              type="radio"
-              id="usado"
-              name="condition"
-              value="usado"
-              onchange="setCondition('usado')"
-            />
-            <label for="usado">Usado</label>
-          </div>
-          {errors.condition && (
-            <p className="error-message">{errors.condition}</p>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label>Preço:</label>
-          <input
-            type="number"
-            step="0.01"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-          {errors.price && <p className="error-message">{errors.price}</p>}
-        </div>
-
-        <div className="form-group">
-          <label>Breve Descrição (máximo de 200 palavras):</label>
-          <textarea
-            maxLength="200"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          ></textarea>
-          {errors.description && (
-            <p className="error-message">{errors.description}</p>
-          )}
-        </div>
-
-        <button type="submit">Adicionar ao Estoque</button>
-      </form>
+          <button type="submit">Adicionar ao Estoque</button>
+        </form>
+      </div>
     </div>
   );
 };

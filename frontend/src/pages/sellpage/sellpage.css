@@ -1,32 +1,89 @@
-/* Estilo principal da página */
 .sell-page {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 40px;
-  padding-top: 60px;
+  display: flex; /* Configura o layout em Flexbox */
+  flex-direction: row; /* Coloca os elementos lado a lado */
+  align-items: left; /* Centraliza os itens verticalmente */
+  justify-content: space-between; /* Espaça o banner e o formulário */
+  max-width: 1050px; /* Define uma largura máxima */
+  margin: 40px auto; /* Centraliza horizontalmente */
+  padding: 0px; /* Adiciona espaçamento interno */
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-family: Arial, sans-serif;
-  padding-top: 80px !important;
+  border-radius: 12px; /* Aplica bordas arredondadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra para destaque */
+  overflow: hidden; /* Impede que os filhos ultrapassem as bordas */
+  margin-top: 110px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
 }
 
-/* Título da página */
-.sell-page h1 {
+.sell-page-banner {
+  flex: 0 0 30%; /* O banner ocupa 30% da largura */
+  background-color: rgb(207, 15, 51); /* Cor do banner */
+  color: white; /* Texto em branco */
+  padding: 20px;
+  border-radius: 0 0 0 12px; /* Arredonda os cantos superiores e inferiores */
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
+  display: flex;
+  align-items: center; /* Centraliza verticalmente o conteúdo */
+  justify-content: center; /* Centraliza horizontalmente o conteúdo */
   text-align: center;
-  color: #333333;
+  font-size: 3rem;
+  font-weight: bold;
+  max-width: 30%;
+  box-sizing: border-box; /* Inclui o padding no cálculo do tamanho */
+  overflow: hidden; /* Esconde conteúdo que ultrapassa o limite */
+  font-style: oblique; /* Similar ao itálico, mas inclina artificialmente */
+  line-height: 150%;
+  letter-spacing: 6.5px;
+  word-spacing: 10px; /* Adiciona 2px entre palavras */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra deslocada 2px */
+}
+
+.sell-page-banner p {
+  white-space: pre-wrap; /* Permite quebra de linha automática */
+  display: inline-block; /* Cada palavra é tratada como bloco individual */
+  text-align: center; /* Centraliza o texto */
+  line-height: 1.5; /* Ajusta o espaçamento vertical entre as palavras */
+}
+
+/* Formulário */
+.sell-page-form {
+  flex: 1; /* O formulário ocupa o restante do espaço disponível */
+  max-width: 70%; /* Limita a largura do formulário */
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f9f9f9
+  ); /* Gradiente leve no fundo */
+  border: 1px solid #e0e0e0; /* Borda discreta */
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: flex;
+  flex-direction: column; /* Organiza os campos do formulário verticalmente */
+  justify-content: center; /* Centraliza verticalmente o conteúdo */
+  align-items: stretch; /* Preenche a largura do formulário */
+}
+
+/* Cabeçalho do formulário */
+.sell-page-form h1 {
+  text-align: center; /* Centraliza o texto */
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 30px;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e11138;
+  display: inline-block;
+  padding-bottom: 10px;
 }
-
+/* Grupo de formulário */
 /* Grupo de formulário */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .form-group-person {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .form-group label {
@@ -97,25 +154,6 @@ button[type="submit"]:hover {
 button[type="submit"]:active {
   background-color: #a00d28;
   transform: scale(0.98);
-}
-
-/* Melhorias de layout para dispositivos menores */
-@media (max-width: 600px) {
-  .sell-page {
-    padding: 20px;
-  }
-
-  .sell-page h1 {
-    font-size: 1.8rem;
-  }
-
-  .form-group label {
-    font-size: 1rem;
-  }
-
-  button[type="submit"] {
-    font-size: 1rem;
-  }
 }
 
 .radio-group {
