@@ -2,7 +2,7 @@ import random
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-# IDs dos vendedores (substitua pelos IDs reais)
+# IDs dos vendedores 
 seller_ids = [
     ObjectId("67217ebd82bf91cb6d5ad7df"),
     ObjectId("671a76b8c4b1b2ae753e99e9"),
@@ -11,12 +11,12 @@ seller_ids = [
     ObjectId("67193a390ef3926db6aaf8d6"),
 ]
 
-# Conectar ao MongoDB usando o MONGO_URI fornecido
+# Conecta ao MongoDB usando o MONGO_URI fornecido
 MONGO_URI = "mongodb+srv://henrique:123@cluster0.juves.mongodb.net/WebPecas?retryWrites=true&w=majority"
 
 client = MongoClient(MONGO_URI)
 db = client["WebPecas"]  # O nome do banco de dados é 'WebPecas', conforme o MONGO_URI
-collection = db["products"]  # Substitua pelo nome da sua coleção de produtos, se for diferente
+collection = db["products"]  #nome da colecao de produtos
 
 # Dados para geração
 car_brands_models = {
@@ -436,7 +436,7 @@ def generate_random_product():
     return product
 
 # Gerar e inserir produtos
-num_products = 33  # Defina quantos produtos deseja gerar
+num_products = 33  #  quantos produtos deseja gerar
 
 products_to_insert = [generate_random_product() for _ in range(num_products)]
 
