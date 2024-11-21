@@ -369,6 +369,7 @@ const partCategories = {
     "Reservatório de fluido de para-brisa",
     "Buzina",
   ],
+  Outro: [],
 };
 
 const SellPage = () => {
@@ -390,9 +391,85 @@ const SellPage = () => {
     setCarModel(""); // Limpa o modelo quando muda a marca
   };
 
+  // Armazena o nome da peça personalizada
+  const [customPart, setCustomPart] = useState("");
+
+  //validação dos campos
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    //valida estoque
+    if (
+      !stock || //valor deve ser inserido
+      isNaN(stock) || // deve ser um número
+      parseInt(stock) <= 0 || //numero inteiro maior que zero
+      !Number.isInteger(parseFloat(stock)) //numero não possui casas decimais
+    ) {
+      newErrors.stock =
+        "A quantidade no estoque deve ser um número inteiro maior que zero.";
+    }
+    const currentYear = new Date().getFullYear(); // Obter o ano atual
+    //valida categoria personalizada
+    if (typeCategory === "Outro") {
+      if (!customPart || customPart.trim().length === 0) {
+        //está vazio ou contem apenas espaços
+        newErrors.customPart = "O nome da categoria é obrigatório.";
+      } else if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(customPart)) {
+        //contem apenas letras (acentuadas) e espaços
+        newErrors.customPart =
+          "O nome da categoria só pode conter letras e espaços.";
+      } else if (customPart.length < 3 || customPart.length > 50) {
+        //entre 3 e 50 caracteres
+        newErrors.customPart =
+          "O nome da categoria deve ter entre 3 e 50 caracteres.";
+      }
+    }
+    //valida ano
+    if (
+      !yearFrom || // Verifica se o campo está vazio
+      isNaN(yearFrom) || // Verifica se não é um número
+      parseInt(yearFrom) < 1886 || // Verifica se o ano é menor que 1886
+      parseInt(yearFrom) > currentYear // Verifica se o ano é maior que o atual
+    ) {
+      newErrors.yearFrom = `Ano inicial inválido. Deve ser um ano válido até  ${currentYear}.`;
+    }
+    if (!yearTo || yearTo < yearFrom)
+      newErrors.yearTo = "Ano final deve ser maior ou igual ao ano inicial.";
+    //valida preço
+    if (
+      !price || // Verifica se o campo está vazio
+      isNaN(price) || // Verifica se não é um número
+      parseFloat(price) <= 0 || // Verifica se o valor é maior que zero
+      !/^\d+(\.\d{1,2})?$/.test(price) // Verifica se o formato é válido (até duas casas decimais)
+    ) {
+      newErrors.price =
+        "O preço deve ser um número maior que zero e com até duas casas decimais.";
+    }
+    //valida descrição
+    if (!description || description.trim().length === 0) {
+      newErrors.description =
+        "A descrição é obrigatória e não pode conter apenas espaços.";
+    } else if (description.length > 200) {
+      newErrors.description = "A descrição deve ter no máximo 200 caracteres.";
+    } else if (!/^[a-zA-Z0-9À-ÿ\s.,!?()-]+$/.test(description)) {
+      newErrors.description = "A descrição contém caracteres inválidos.";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0; // Retorna true se não houver erros
+  };
+
+  //envio dos dados
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    //formulário está validado ?
+    if (!validateForm()) {
+      alert("Por favor, corrija os erros no formulário.");
+      return;
+    }
+    //é vendedor ?
     if (!isVendedor) {
       alert("Você precisa ser um vendedor para adicionar produtos.");
       return;
@@ -400,8 +477,8 @@ const SellPage = () => {
 
     const productData = {
       vendedorId: userId, // Usando userId como vendedorId
-      typeCategory,
-      typePart,
+      typeCategory: typeCategory === "Outro" ? customPart : typeCategory, // Envia o nome digitado como categoria
+      typePart: typeCategory === "Outro" ? customPart : typePart, // Usa o nome digitado também como tipo de peça
       stock,
       carBrand,
       carModel,
@@ -451,9 +528,23 @@ const SellPage = () => {
               </option>
             ))}
           </select>
+          {/* Campo de entrada para "Outro" */}
+          {typeCategory === "Outro" && (
+            <div className="form-group-person">
+              <label>Especifique a categoria:</label>
+              <input
+                type="text"
+                value={customPart}
+                onChange={(e) => setCustomPart(e.target.value)}
+                required
+              />
+              {errors.customPart && (
+                <p className="error-message">{errors.customPart}</p>
+              )}
+            </div>
+          )}
         </div>
-
-        {typeCategory && (
+        {typeCategory && typeCategory !== "Outro" && (
           <div className="form-group">
             <label>Tipo de Peça:</label>
             <select
@@ -462,7 +553,7 @@ const SellPage = () => {
               required
             >
               <option value="">Selecione o tipo de peça</option>
-              {partCategories[typeCategory].map((part, index) => (
+              {partCategories[typeCategory]?.map((part, index) => (
                 <option key={index} value={part}>
                   {part}
                 </option>
@@ -479,6 +570,7 @@ const SellPage = () => {
             onChange={(e) => setStock(e.target.value)}
             required
           />
+          {errors.stock && <p className="error-message">{errors.stock}</p>}
         </div>
 
         <div className="form-group">
@@ -529,6 +621,10 @@ const SellPage = () => {
               required
             />
           </div>
+          {errors.yearFrom && (
+            <p className="error-message">{errors.yearFrom}</p>
+          )}
+          {errors.yearTo && <p className="error-message">{errors.yearTo}</p>}
         </div>
 
         <div className="form-group">
@@ -551,6 +647,7 @@ const SellPage = () => {
             onChange={(e) => setPrice(e.target.value)}
             required
           />
+          {errors.price && <p className="error-message">{errors.price}</p>}
         </div>
 
         <div className="form-group">
@@ -561,6 +658,9 @@ const SellPage = () => {
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
+          {errors.description && (
+            <p className="error-message">{errors.description}</p>
+          )}
         </div>
 
         <button type="submit">Adicionar ao Estoque</button>

@@ -1,115 +1,125 @@
 /* Estilo principal da página */
 .sell-page {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 40px;
-    padding-top: 60px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-family: Arial, sans-serif;
-    padding-top: 80px !important;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 40px;
+  padding-top: 60px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: Arial, sans-serif;
+  padding-top: 80px !important;
 }
 
 /* Título da página */
 .sell-page h1 {
-    text-align: center;
-    color: #333333;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 30px;
+  text-align: center;
+  color: #333333;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
 /* Grupo de formulário */
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group-person {
+  margin-top: 10px;
 }
 
 .form-group label {
-    display: block;
-    font-weight: bold;
-    color: #333333;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
+  display: block;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
 }
 
 /* Campos de input e seleção */
 .form-group input,
 .form-group select,
 .form-group textarea {
-    width: 100%;
-    padding: 14px;
-    font-size: 1rem;
-    border: 1px solid #dddddd;
-    border-radius: 6px;
-    background-color: #f3f3f3;
-    transition: border-color 0.3s, background-color 0.3s;
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  background-color: #f3f3f3;
+  transition: border-color 0.3s, background-color 0.3s;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #0056b3;
-    background-color: #ffffff;
-    outline: none;
-    box-shadow: 0 0 6px rgba(0, 86, 179, 0.2);
+  border-color: #0056b3;
+  background-color: #ffffff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 86, 179, 0.2);
 }
 
 textarea {
-    height: 120px;
-    resize: vertical;
+  height: 120px;
+  resize: vertical;
 }
 
 /* Ano de início e fim */
 .year-inputs {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .year-inputs input {
-    width: 100%;
+  width: 100%;
 }
 
 /* Botão de envio */
 button[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2rem;
-    background-color: #e11138;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  background-color: #e11138;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 20px;
 }
 
 button[type="submit"]:hover {
-    background-color: #c10f30;
-    transform: scale(1.02);
+  background-color: #c10f30;
+  transform: scale(1.02);
 }
 
 button[type="submit"]:active {
-    background-color: #a00d28;
-    transform: scale(0.98);
+  background-color: #a00d28;
+  transform: scale(0.98);
 }
 
 /* Melhorias de layout para dispositivos menores */
 @media (max-width: 600px) {
-    .sell-page {
-        padding: 20px;
-    }
+  .sell-page {
+    padding: 20px;
+  }
 
-    .sell-page h1 {
-        font-size: 1.8rem;
-    }
+  .sell-page h1 {
+    font-size: 1.8rem;
+  }
 
-    .form-group label {
-        font-size: 1rem;
-    }
+  .form-group label {
+    font-size: 1rem;
+  }
 
-    button[type="submit"] {
-        font-size: 1rem;
-    }
+  button[type="submit"] {
+    font-size: 1rem;
+  }
+}
+
+.error-message {
+  color: rgb(207, 15, 51); /* Cor vermelha personalizada */
+  font-size: 0.9rem; /* Tamanho da fonte */
+  margin-top: 5px; /* Espaçamento acima da mensagem */
 }
