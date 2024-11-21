@@ -118,6 +118,38 @@ button[type="submit"]:active {
   }
 }
 
+.radio-group {
+  display: flex; /* Configura o container como Flexbox */
+  justify-content: space-between; /* Espaço uniforme entre os itens */
+  align-items: center; /* Alinha verticalmente os itens */
+  gap: 70px; /* Espaçamento entre os itens */
+}
+
+.radio-group label {
+  flex: 1; /* Cada rótulo ocupa o mesmo espaço */
+  text-align: center; /* Centraliza o texto dentro de cada rótulo */
+  padding: 10px; /* Espaçamento interno para conforto visual */
+  border: 1px solid #ccc; /* Borda para visualização clara */
+  border-radius: 5px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de clique */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s; /* Transições suaves */
+}
+
+.radio-group label:hover {
+  background-color: #f0f0f0; /* Destaque ao passar o mouse */
+}
+
+.radio-group input[type="radio"] {
+  display: none; /* Esconde os inputs de rádio */
+}
+
+.radio-group input[type="radio"]:checked + label {
+  background-color: rgb(207, 15, 51); /* Cor de fundo quando selecionado */
+  color: white; /* Cor do texto quando selecionado */
+  border-color: rgb(207, 15, 51); /* Cor da borda ao ser selecionado */
+  transform: scale(1.1); /* Aumenta levemente o tamanho */
+}
+
 .error-message {
   color: rgb(207, 15, 51); /* Cor vermelha personalizada */
   font-size: 0.9rem; /* Tamanho da fonte */

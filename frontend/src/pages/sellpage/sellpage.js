@@ -415,7 +415,7 @@ const SellPage = () => {
       if (!customPart || customPart.trim().length === 0) {
         //está vazio ou contem apenas espaços
         newErrors.customPart = "O nome da categoria é obrigatório.";
-      } else if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(customPart)) {
+      } else if (!/^[a-zA-ZÀ-ÿ\s0-9]+$/.test(customPart)) {
         //contem apenas letras (acentuadas) e espaços
         newErrors.customPart =
           "O nome da categoria só pode conter letras e espaços.";
@@ -436,6 +436,10 @@ const SellPage = () => {
     }
     if (!yearTo || yearTo < yearFrom)
       newErrors.yearTo = "Ano final deve ser maior ou igual ao ano inicial.";
+    //valida estado
+    if (!condition) {
+      newErrors.condition = "Por favor, selecione a condição da peça.";
+    }
     //valida preço
     if (
       !price || // Verifica se o campo está vazio
@@ -629,13 +633,37 @@ const SellPage = () => {
 
         <div className="form-group">
           <label>Condição:</label>
-          <select
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
-          >
-            <option value="nova">Nova</option>
-            <option value="usada">Usada</option>
-          </select>
+          <div class="radio-group">
+            <input
+              type="radio"
+              id="novo"
+              name="condition"
+              value="novo"
+              onchange="setCondition('novo')"
+            />
+            <label for="novo">Novo</label>
+
+            <input
+              type="radio"
+              id="seminovo"
+              name="condition"
+              value="seminovo"
+              onchange="setCondition('seminovo')"
+            />
+            <label for="seminovo">Seminovo</label>
+
+            <input
+              type="radio"
+              id="usado"
+              name="condition"
+              value="usado"
+              onchange="setCondition('usado')"
+            />
+            <label for="usado">Usado</label>
+          </div>
+          {errors.condition && (
+            <p className="error-message">{errors.condition}</p>
+          )}
         </div>
 
         <div className="form-group">
