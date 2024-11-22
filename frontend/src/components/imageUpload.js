@@ -1,89 +1,67 @@
 import React, { useState } from "react";
 import "./imageUpload.css";
 
-const ImageUpload = () => {
-  const [images, setImages] = useState([null]); // Inicializa com um quadrado vazio
+const ImageUpload = ({ onImagesChange }) => {
+  const [images, setImages] = useState([]);
 
-  const handleFileChange = (e, index) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImages((prevImages) => {
-          const newImages = [...prevImages];
-          newImages[index] = reader.result; // Atualiza o quadrado com a imagem carregada
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    const newImages = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file), // Cria preview para exibição
+    }));
 
-          // Adiciona um novo quadrado vazio, se ainda não houver e o limite de 5 não foi atingido
-          if (!newImages.includes(null) && newImages.length < 5) {
-            newImages.push(null);
-          }
+    if (images.length + newImages.length > 5) {
+      alert("Você pode adicionar no máximo 5 imagens.");
+      return;
+    }
 
-          return newImages;
-        });
-      };
-      reader.readAsDataURL(file);
+    const updatedImages = [...images, ...newImages];
+    setImages(updatedImages);
+
+    // Atualiza o estado no componente pai
+    if (onImagesChange) {
+      onImagesChange(updatedImages.map((img) => img.file)); // Passa apenas os arquivos para o estado pai
     }
   };
 
-  const handleRemoveLast = () => {
-    setImages((prevImages) => {
-      const newImages = [...prevImages];
+  const handleRemoveImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
 
-      // Localizar o índice da última imagem preenchida
-      const lastFilledIndex = newImages
-        .map((image, index) => (image !== null ? index : null))
-        .filter((index) => index !== null)
-        .pop();
-
-      if (lastFilledIndex !== undefined) {
-        newImages[lastFilledIndex] = null; // Remove a última imagem preenchida
-      }
-
-      // Adiciona um quadrado vazio se não houver um
-      if (!newImages.includes(null) && newImages.length < 5) {
-        newImages.push(null);
-      }
-
-      return newImages;
-    });
+    if (onImagesChange) {
+      onImagesChange(updatedImages.map((img) => img.file));
+    }
   };
 
   return (
-    <div>
+    <div className="image-upload-container">
       <div className="image-upload-grid">
-        {images.map((image, index) => (
+        {images.map((img, index) => (
           <div key={index} className="image-square">
-            {image ? (
-              <img
-                src={image}
-                alt={`Preview ${index}`}
-                className="image-preview"
-              />
-            ) : (
-              <label
-                htmlFor={`file-input-${index}`}
-                className="image-placeholder"
-              >
-                <span>+</span>
-                <input
-                  type="file"
-                  id={`file-input-${index}`}
-                  accept="image/*"
-                  onChange={(e) => handleFileChange(e, index)}
-                  className="file-input"
-                />
-              </label>
-            )}
+            <img src={img.preview} alt={`Preview ${index}`} />
+            <button
+              className="remove-button"
+              onClick={() => handleRemoveImage(index)}
+            >
+              ✕
+            </button>
           </div>
         ))}
+        {images.length < 5 && (
+          <label className="image-square upload-placeholder">
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleFileChange}
+            />
+            <span>+</span>
+          </label>
+        )}
       </div>
-      {images.filter((image) => image !== null).length > 0 && (
-        <button onClick={handleRemoveLast} className="remove-button">
-          <span className="trash-icon">🗑️</span> Remover Última Imagem
-        </button>
-      )}
-      {images.filter((image) => image !== null).length >= 5 && (
-        <p className="max-images-warning">Limite de 5 Fotos</p>
+      {images.length >= 5 && (
+        <p className="max-images-warning">Máximo de 5 imagens atingido.</p>
       )}
     </div>
   );

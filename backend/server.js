@@ -92,20 +92,16 @@ const User = mongoose.model("User", userSchema);
 // Rota de upload usando `cloudinary.uploader.upload`
 app.post("/upload", upload.single("image"), uploadToCloudinary, (req, res) => {
   try {
-    console.log("Requisição de upload recebida.");
-
-    // Verifica se o arquivo foi processado
-    if (!req.file) {
-      console.warn("Nenhum arquivo foi enviado na requisição.");
-      return res.status(400).json({ message: "Nenhum arquivo enviado." });
+    console.log("Dados recebidos:", req.body);
+    console.log("URLs das imagens:", req.body.images);
+    if (!req.file || !req.file.url) {
+      return res.status(400).json({ message: "Erro ao processar imagem." });
     }
-
-    // Após upload bem-sucedido
-    console.log("Imagem enviada com sucesso para o Cloudinary.");
     res.status(200).json({ url: req.file.url });
   } catch (error) {
-    console.error("Erro ao fazer upload da imagem:", error.message);
-    res.status(500).json({ message: "Erro ao fazer upload da imagem." });
+    console.error("Erro ao adicionar produto:", error);
+    console.error("Erro ao fazer upload:", error.message);
+    res.status(500).json({ message: "Erro interno no servidor." });
   }
 });
 

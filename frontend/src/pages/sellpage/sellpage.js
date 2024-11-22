@@ -385,6 +385,9 @@ const SellPage = () => {
   const [price, setPrice] = useState("");
   const [condition, setCondition] = useState("nova");
   const [description, setDescription] = useState("");
+  //validação dos campos
+  const [errors, setErrors] = useState({});
+  const [images, setImages] = useState([]);
 
   const handleCarBrandChange = (e) => {
     const selectedBrand = e.target.value;
@@ -394,10 +397,6 @@ const SellPage = () => {
 
   // Armazena o nome da peça personalizada
   const [customPart, setCustomPart] = useState("");
-
-  //validação dos campos
-  const [errors, setErrors] = useState({});
-  const [image, setImage] = useState("");
 
   const validateForm = () => {
     const newErrors = {};
@@ -467,52 +466,74 @@ const SellPage = () => {
     return Object.keys(newErrors).length === 0; // Retorna true se não houver erros
   };
 
-  //envio dos dados
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //formulário está validado ?
+
     if (!validateForm()) {
-      alert("Por favor, corrija os erros no formulário.");
+      alert("Preencha todos os campos corretamente.");
       return;
     }
-    //é vendedor ?
+
     if (!isVendedor) {
-      alert("Você precisa ser um vendedor para adicionar produtos.");
+      alert("Somente vendedores podem adicionar produtos.");
       return;
     }
+    console.log("Imagens carregadas:", images);
 
-    const productData = {
-      vendedorId: userId, // Usando userId como vendedorId
-      typeCategory: typeCategory === "Outro" ? customPart : typeCategory, // Envia o nome digitado como categoria
-      typePart: typeCategory === "Outro" ? customPart : typePart, // Usa o nome digitado também como tipo de peça
-      stock,
-      carBrand,
-      carModel,
-      yearFrom,
-      yearTo,
-      condition,
-      description,
-      price,
-    };
-
-    // Enviar os dados para o backend
     try {
-      const response = await fetch("http://localhost:8080/addProduct", {
+      const imageUrls = [];
+
+      for (const image of images) {
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const response = await fetch("http://localhost:8080/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log("URLs geradas:", imageUrls);
+
+        if (response.ok) {
+          imageUrls.push(data.url);
+        } else {
+          console.error("Erro ao enviar imagem:", data.message);
+          alert("Erro ao enviar imagens.");
+          return;
+        }
+      }
+
+      const productData = {
+        vendedorId: userId,
+        typeCategory,
+        typePart,
+        stock,
+        carBrand,
+        carModel,
+        yearFrom,
+        yearTo,
+        condition,
+        description,
+        price,
+        images: imageUrls,
+      };
+
+      const productResponse = await fetch("http://localhost:8080/addProduct", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(productData),
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      const productResult = await productResponse.json();
+      if (productResponse.ok) {
         alert("Produto adicionado com sucesso!");
-        // Limpar o formulário ou redirecionar, se necessário
       } else {
-        alert(`Erro ao adicionar produto: ${data.message}`);
+        alert(`Erro ao adicionar produto: ${productResult.message}`);
       }
-    } catch (err) {
-      console.error("Erro ao enviar produto:", err);
+    } catch (error) {
+      console.error("Erro ao processar o envio:", error);
+      alert("Erro interno ao enviar o produto.");
     }
   };
 
@@ -703,8 +724,9 @@ const SellPage = () => {
             )}
           </div>
 
-          <ImageUpload setImage={setImage} />
-
+          <ImageUpload
+            onImagesChange={(uploadedImages) => setImages(uploadedImages)}
+          />
           <button type="submit">Adicionar ao Estoque</button>
         </form>
       </div>
