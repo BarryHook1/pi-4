@@ -9,7 +9,13 @@ const { upload, uploadToCloudinary } = require("./cloudinaryConfig");
 const cloudinary = require("cloudinary").v2;
 
 // Carregar variáveis de ambiente
-dotenv.config();
+dotenv.config({ override: false });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Inicializar o app
 const app = express();
@@ -24,13 +30,6 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB conectado"))
   .catch((err) => console.error("Erro ao conectar ao MongoDB:", err));
-
-// Configuração de armazenamento no Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 // Definir esquema de produto
 const productSchema = new mongoose.Schema({
@@ -49,6 +48,10 @@ const productSchema = new mongoose.Schema({
   condition: { type: String, required: true },
   description: { type: String, maxLength: 200 },
   price: { type: Number, required: true },
+  images: {
+    type: [String], // Aceita um array de strings
+    required: true, // Garante que ao menos uma imagem seja necessária
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);
@@ -88,8 +91,6 @@ userSchema.set("toJSON", { virtuals: true });
 
 const User = mongoose.model("User", userSchema);
 
-// Rota para upload de imagens
-// Rota de upload usando `cloudinary.uploader.upload`
 app.post("/upload", upload.single("image"), uploadToCloudinary, (req, res) => {
   try {
     console.log("Dados recebidos:", req.body);
@@ -188,10 +189,15 @@ app.post("/addProduct", async (req, res) => {
       condition: req.body.condition,
       description: req.body.description,
       price: req.body.price,
+      images: req.body.images,
     };
+
+    console.log("Img :%s", novoProduto.img);
 
     // Salvando o produto na coleção de produtos
     const produtoSalvo = await Product.create(novoProduto);
+
+    console.log("Produto Novo", novoProduto);
 
     res
       .status(200)
@@ -493,7 +499,11 @@ app.get("/seller/:sellerId", async (req, res) => {
   }
 });
 
-// Iniciar o servidor
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Iniciar o servidor apenas se não estiver em modo de teste
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = { app, User };
