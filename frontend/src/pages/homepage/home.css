@@ -88,9 +88,9 @@
 
 .banner-section {
   position: relative;
-  height: 400px;
+  height: 500px;
   /* Altura ajustada para o banner */
-  background: url("./../../assets/bannerteste.png") center/cover no-repeat;
+  background: url("./../../assets/banner3.png") center/cover no-repeat;
   z-index: 1;
 }
 
