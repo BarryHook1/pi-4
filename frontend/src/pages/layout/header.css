@@ -1,26 +1,27 @@
+/* header.css */
+
 /* Estilo para o cabeçalho */
 /* Estilo do header fixo */
 .header {
     width: 100%;
     padding: 10px 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: #ffffff00;
     position: fixed; /* Fixa o header no topo */
     top: 0;
     z-index: 1000;
     height: 60px; /* Ajuste conforme a altura real do header */
-    
-  }
+}
 
-  /* Classe para o conteúdo principal */
+/* Classe para o conteúdo principal */
 .main-content {
     padding-top: 60px; /* Correspondente à altura do header */
-  }
-  
-.Logo{
+}
+
+.Logo {
     cursor: pointer;
 }
 
@@ -90,18 +91,23 @@
     color: #e11138;
 }
 
-/* Estilo base para os links do header */
+/* Estilo base para os itens do menu de navegação */
 .header .nav ul li {
     display: inline-block;
 }
-    
 
+/* Estilos padrão para os links do header (branco em todas as páginas) */
 .header .nav ul li a {
-    color: #333;
+    color: rgb(0, 0, 0); /* Alterado de #333 para white */
     text-decoration: none;
     position: relative;
     padding: 5px 0;
     transition: color 0.3s;
+}
+
+/* Estilos específicos para a página inicial (preto na home page) */
+.home-header .nav ul li a {
+    color: rgb(255, 255, 255);
 }
 
 /* Pseudo-elemento para o efeito de animação */
@@ -125,8 +131,6 @@
     transform: scaleX(1); /* Mostra a linha com um efeito suave */
     transform-origin: left; /* Mantém a origem da animação à esquerda */
 }
-
-
 
 /* Retração da linha na saída do hover */
 .header .nav ul li a::after {
