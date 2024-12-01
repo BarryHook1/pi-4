@@ -1,10 +1,17 @@
+const app = require("./src/App");
+
+const PORT = process.env.PORT || 8080;
+
+// Iniciar o servidor
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+/*
 // server.js
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-const { upload, uploadToCloudinary } = require("./cloudinaryConfig");
+const { upload, uploadToCloudinary } = require("./src/config/cloudinaryConfig");
 
 const cloudinary = require("cloudinary").v2;
 
@@ -507,3 +514,4 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 module.exports = { app, User };
+*/
