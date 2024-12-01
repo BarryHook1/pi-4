@@ -1,35 +1,39 @@
-// Header.js
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import './header.css';
-import { AuthContext } from '../../context/AuthContext';
+// header.js
+import React, { useContext } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import "./header.css";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Importamos useLocation para obter a rota atual
   const { userName, isVendedor, logout } = useContext(AuthContext);
+
+  // Verifica se a rota atual é a página inicial
+  const isHomePage = location.pathname === "/";
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   const handleSellClick = () => {
     if (isVendedor) {
-      navigate('/sellpage');
+      navigate("/sellpage");
     } else {
-      alert('Você precisa ser um vendedor para acessar esta página.');
+      alert("Você precisa ser um vendedor para acessar esta página.");
     }
   };
 
   const handleProfileClick = () => {
-    navigate('/vendedorpage');
+    navigate("/vendedorpage");
   };
 
   return (
-    // Removemos a condição e aplicamos a classe 'fixed-header' diretamente
-    <header className="header fixed-header">
-      <div className="logo" onClick={() => navigate('/')}>
+    // Adicionamos a classe 'home-header' se estivermos na página inicial
+    <header className={`header fixed-header ${isHomePage ? "home-header" : ""}`}>
+      <div className="Logo" onClick={() => navigate("/")}>
         <img src={logo} alt="Logo" />
       </div>
       <nav className="nav">
@@ -74,7 +78,7 @@ const Header = () => {
             )}
           </div>
         ) : (
-          <button className="login-btn" onClick={() => navigate('/login')}>
+          <button className="login-btn" onClick={() => navigate("/login")}>
             Entrar
           </button>
         )}

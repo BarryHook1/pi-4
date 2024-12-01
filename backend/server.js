@@ -4,9 +4,18 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+const { upload, uploadToCloudinary } = require("./cloudinaryConfig");
+
+const cloudinary = require("cloudinary").v2;
 
 // Carregar variáveis de ambiente
 dotenv.config({ override: false });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Inicializar o app
 const app = express();
@@ -39,6 +48,10 @@ const productSchema = new mongoose.Schema({
   condition: { type: String, required: true },
   description: { type: String, maxLength: 200 },
   price: { type: Number, required: true },
+  images: {
+    type: [String], // Aceita um array de strings
+    required: true, // Garante que ao menos uma imagem seja necessária
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);
@@ -52,7 +65,11 @@ const userSchema = new mongoose.Schema({
   ratings: {
     type: [
       {
-        buyer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        buyer: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
         rating: { type: Number, required: true, min: 1, max: 5 },
         comment: { type: String, maxlength: 500 },
         date: { type: Date, default: Date.now },
@@ -73,6 +90,21 @@ userSchema.virtual("averageRating").get(function () {
 userSchema.set("toJSON", { virtuals: true });
 
 const User = mongoose.model("User", userSchema);
+
+app.post("/upload", upload.single("image"), uploadToCloudinary, (req, res) => {
+  try {
+    console.log("Dados recebidos:", req.body);
+    console.log("URLs das imagens:", req.body.images);
+    if (!req.file || !req.file.url) {
+      return res.status(400).json({ message: "Erro ao processar imagem." });
+    }
+    res.status(200).json({ url: req.file.url });
+  } catch (error) {
+    console.error("Erro ao adicionar produto:", error);
+    console.error("Erro ao fazer upload:", error.message);
+    res.status(500).json({ message: "Erro interno no servidor." });
+  }
+});
 
 // Rota de login
 app.post("/login", async (req, res) => {
@@ -157,10 +189,15 @@ app.post("/addProduct", async (req, res) => {
       condition: req.body.condition,
       description: req.body.description,
       price: req.body.price,
+      images: req.body.images,
     };
+
+    console.log("Img :%s", novoProduto.img);
 
     // Salvando o produto na coleção de produtos
     const produtoSalvo = await Product.create(novoProduto);
+
+    console.log("Produto Novo", novoProduto);
 
     res
       .status(200)
@@ -323,7 +360,11 @@ app.get("/vendedor/proposals/:sellerId", async (req, res) => {
 
 // Definir esquema de compra
 const purchaseSchema = new mongoose.Schema({
-  product: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+    required: true,
+  },
   buyer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   paymentMethod: { type: String, required: true },
   date: { type: Date, default: Date.now },
@@ -392,19 +433,23 @@ app.post("/rateSeller", async (req, res) => {
     }
 
     if (rating < 1 || rating > 5) {
-      return res.status(400).json({ message: "A avaliação deve ser entre 1 e 5." });
+      return res
+        .status(400)
+        .json({ message: "A avaliação deve ser entre 1 e 5." });
     }
 
     // Verificar se o comprador já comprou algo do vendedor
     const purchases = await Purchase.find({
       buyer: buyerId,
-      product: { $in: await Product.find({ vendedor: sellerId }).select("_id") },
+      product: {
+        $in: await Product.find({ vendedor: sellerId }).select("_id"),
+      },
     });
 
     if (purchases.length === 0) {
-      return res
-        .status(403)
-        .json({ message: "Você não pode avaliar um vendedor com quem não comprou." });
+      return res.status(403).json({
+        message: "Você não pode avaliar um vendedor com quem não comprou.",
+      });
     }
 
     // Verificar se o comprador já avaliou este vendedor
@@ -414,7 +459,9 @@ app.post("/rateSeller", async (req, res) => {
     });
 
     if (existingRating) {
-      return res.status(400).json({ message: "Você já avaliou este vendedor." });
+      return res
+        .status(400)
+        .json({ message: "Você já avaliou este vendedor." });
     }
 
     // Adicionar a nova avaliação
@@ -452,10 +499,8 @@ app.get("/seller/:sellerId", async (req, res) => {
   }
 });
 
-
-
 // Iniciar o servidor apenas se não estiver em modo de teste
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

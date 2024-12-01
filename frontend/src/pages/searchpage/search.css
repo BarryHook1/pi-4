@@ -66,7 +66,7 @@
 }
 
 .sidebar label:hover input[type="checkbox"] {
-  background-color: #ccc;
+  background-color: #dd7979;
 }
 
 /* Botão de Limpar Filtros fixado na parte inferior */
@@ -80,8 +80,10 @@
   /* Compensa o padding da .sidebar */
   margin-left: -20px; /* Margem negativa igual ao padding esquerdo da .sidebar */
   margin-right: -20px; /* Margem negativa igual ao padding direito da .sidebar */
-  width: calc(100% + 40px); /* Aumenta a largura para compensar as margens negativas */
-  
+  width: calc(
+    100% + 40px
+  ); /* Aumenta a largura para compensar as margens negativas */
+
   box-sizing: border-box;
 }
 .clear-button {
@@ -141,6 +143,7 @@
   border: 1px solid #ddd;
   padding: 15px;
   width: 300px;
+  height: 310px; /* Altura fixa para padronizar */
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -155,6 +158,9 @@
 .product-card h3 {
   margin-top: 0;
   font-size: 1.5em;
+  white-space: nowrap; /* Impede quebra de linha */
+  overflow: hidden; /* Esconde texto excedente */
+  text-overflow: ellipsis; /* Adiciona "..." no texto excedente */
   color: #333;
 }
 
@@ -162,6 +168,16 @@
   margin: 5px 0;
   color: #666;
   font-size: 0.9em;
+  overflow: hidden; /* Esconde o texto excedente */
+  text-overflow: ellipsis; /* Adiciona "..." no texto excedente */
+  display: -webkit-box; /* Para múltiplas linhas */
+
+  /* lineclamp completo para não ter warning de compatibilidade*/
+  -webkit-box-orient: vertical; /* Necessário para o clamp */
+  -webkit-line-clamp: 2; /* Limita o número de linhas no WebKit */
+  -moz-line-clamp: 2; /* Suporte para navegadores baseados no Firefox */
+  -ms-line-clamp: 2; /* Suporte para navegadores IE antigos */
+  line-clamp: 2; /* Versão padrão */
 }
 
 /* Animações para modelos */
@@ -187,4 +203,60 @@
 .brand-models label.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+.clickable-header {
+  cursor: pointer;
+  user-select: none; /* Evita seleção do texto ao clicar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clickable-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.arrow {
+  font-size: 0.8rem;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.arrow.down {
+  transform: rotate(0deg); /* Seta aponta para baixo */
+}
+
+.arrow.right {
+  transform: rotate(-90deg); /* Seta aponta para a direita */
+}
+
+.part-categories {
+  margin-left: 1rem;
+}
+
+.selected-parts {
+  margin-left: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.selected-parts span {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+}
+
+.selected-parts p {
+  font-size: 0.9rem;
+  color: #999;
 }

@@ -1,0 +1,37 @@
+.footer {
+  background-color: #696f748f; /* Cor de fundo */
+  padding: 0.5rem; /* Espaçamento interno */
+  display: flex; /* Define flexbox */
+  justify-content: space-between; /* Espaça os itens para os extremos */
+  align-items: center; /* Centraliza verticalmente */
+  border-top: 1px solid #ddd; /* Linha superior */
+  position: relative; /* Evita sobreposição */
+  width: 100%; /* Garante que ocupe toda a largura */
+  box-sizing: border-box; /* Inclui o padding na largura total */
+  margin-top: 5rem; /* Margem acima do footer */
+}
+
+.footer p {
+  margin: 0;
+  font-size: 13px;
+  color: #333;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex; /* Coloca os links na horizontal */
+  gap: 1rem; /* Espaçamento entre os links */
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #0056b3; /* Cor ao passar o mouse */
+}

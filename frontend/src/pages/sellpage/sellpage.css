@@ -1,88 +1,202 @@
-/* sellpage.css */
-
-body {
-    background-color: #f0f2f5; /* Light grey background */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 .sell-page {
-    max-width: 900px;
-    margin: 120px auto;
-    padding: 30px;
-    background-color: #fff; /* White background */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border-radius: 8px;
+  display: flex; /* Configura o layout em Flexbox */
+  flex-direction: row; /* Coloca os elementos lado a lado */
+  align-items: left; /* Centraliza os itens verticalmente */
+  justify-content: space-between; /* Espaça o banner e o formulário */
+  max-width: 1050px; /* Define uma largura máxima */
+  margin: 40px auto; /* Centraliza horizontalmente */
+  padding: 0px; /* Adiciona espaçamento interno */
+  background-color: #ffffff;
+  border-radius: 12px; /* Aplica bordas arredondadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra para destaque */
+  overflow: hidden; /* Impede que os filhos ultrapassem as bordas */
+  margin-top: 110px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
+}
+.sell-page:hover .sell-page-banner {
+  background-color: rgb(172, 14, 43); /* Escurece o fundo do banner */
+  transition: background-color 0.3s ease; /* Transição suave */
 }
 
-.sell-page h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-    font-size: 28px;
+.sell-page-banner {
+  flex: 0 0 30%; /* O banner ocupa 30% da largura */
+  background-color: rgb(207, 15, 51); /* Cor do banner */
+  color: white; /* Texto em branco */
+  padding: 20px;
+  border-radius: 0 0 0 12px; /* Arredonda os cantos superiores e inferiores */
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
+  display: flex;
+  align-items: center; /* Centraliza verticalmente o conteúdo */
+  justify-content: center; /* Centraliza horizontalmente o conteúdo */
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  max-width: 30%;
+  box-sizing: border-box; /* Inclui o padding no cálculo do tamanho */
+  overflow: hidden; /* Esconde conteúdo que ultrapassa o limite */
+  font-style: oblique; /* Similar ao itálico, mas inclina artificialmente */
+  line-height: 150%;
+  letter-spacing: 6.5px;
+  word-spacing: 10px; /* Adiciona 2px entre palavras */
+  text-shadow: 8px 15px 7px rgba(0, 0, 0, 0.5); /* Sombra deslocada 2px */
+  background-color: rgb(207, 15, 51); /* Cor padrão */
+  transition: background-color 0.3s ease; /* Transição suave */
 }
 
+.sell-page-banner p {
+  white-space: pre-wrap; /* Permite quebra de linha automática */
+  display: inline-block; /* Cada palavra é tratada como bloco individual */
+  text-align: center; /* Centraliza o texto */
+  line-height: 1.5; /* Ajusta o espaçamento vertical entre as palavras */
+}
+
+/* Formulário */
+.sell-page-form {
+  flex: 1; /* O formulário ocupa o restante do espaço disponível */
+  max-width: 70%; /* Limita a largura do formulário */
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f9f9f9
+  ); /* Gradiente leve no fundo */
+  border: 1px solid #e0e0e0; /* Borda discreta */
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  display: flex;
+  flex-direction: column; /* Organiza os campos do formulário verticalmente */
+  justify-content: center; /* Centraliza verticalmente o conteúdo */
+  align-items: stretch; /* Preenche a largura do formulário */
+}
+
+/* Cabeçalho do formulário */
+.sell-page-form h1 {
+  text-align: center; /* Centraliza o texto */
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e11138;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+/* Grupo de formulário */
+/* Grupo de formulário */
 .form-group {
-    margin-bottom: 25px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-person {
+  margin-top: 0px;
 }
 
 .form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 14px;
+  display: block;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
 }
 
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 16px;
-    color: #495057;
+.form-group select {
+  appearance: none; /* Remove o estilo padrão do navegador */
+  -webkit-appearance: none; /* Compatibilidade com Safari */
+  -moz-appearance: none; /* Compatibilidade com Firefox */
+  background-color: #f3f3f3; /* Fundo cinza claro */
+  border: 1px solid #cccccc; /* Borda discreta */
+  border-radius: 6px; /* Bordas arredondadas */
+  padding: 10px 14px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho da fonte */
+  color: #333; /* Cor do texto */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23CCCCCC" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
 }
 
-.form-group input[type="text"]:focus,
-.form-group input[type="number"]:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+.form-group select:focus {
+  border-color: #0056b3; /* Destaque azul ao focar */
+  box-shadow: 0 0 8px rgba(0, 86, 179, 0.2); /* Sombra azul */
+  outline: none; /* Remove o outline padrão */
 }
 
-.form-group textarea {
-    resize: vertical;
-    height: 120px;
+textarea {
+  height: 120px;
+  resize: vertical;
 }
 
+/* Ano de início e fim */
 .year-inputs {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 10px;
 }
 
 .year-inputs input {
-    width: 100%;
+  width: 100%;
 }
 
+/* Botão de envio */
 button[type="submit"] {
-    background-color: #f50000; /* Primary color */
-    color: white;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 18px;
-    width: 100%;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  background-color: #e11138;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 20px;
 }
 
 button[type="submit"]:hover {
-    background-color: #ff1c1c;
+  background-color: #c10f30;
+  transform: scale(1.06);
+}
+
+button[type="submit"]:active {
+  background-color: #a00d28;
+  transform: scale(0.98);
+}
+
+.radio-group {
+  display: flex; /* Configura o container como Flexbox */
+  justify-content: space-between; /* Espaço uniforme entre os itens */
+  align-items: center; /* Alinha verticalmente os itens */
+  gap: 70px; /* Espaçamento entre os itens */
+}
+
+.radio-group label {
+  flex: 1; /* Cada rótulo ocupa o mesmo espaço */
+  text-align: center; /* Centraliza o texto dentro de cada rótulo */
+  padding: 10px; /* Espaçamento interno para conforto visual */
+  border: 1px solid #ccc; /* Borda para visualização clara */
+  border-radius: 5px; /* Bordas arredondadas */
+  cursor: pointer; /* Cursor de clique */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s; /* Transições suaves */
+}
+
+.radio-group label:hover {
+  background-color: #f0f0f0; /* Destaque ao passar o mouse */
+}
+
+.radio-group input[type="radio"] {
+  display: none; /* Esconde os inputs de rádio */
+}
+
+.radio-group input[type="radio"]:checked + label {
+  background-color: rgb(207, 15, 51); /* Cor de fundo quando selecionado */
+  color: white; /* Cor do texto quando selecionado */
+  border-color: rgb(207, 15, 51); /* Cor da borda ao ser selecionado */
+  transform: scale(1.1); /* Aumenta levemente o tamanho */
+}
+
+.error-message {
+  color: rgb(207, 15, 51); /* Cor vermelha personalizada */
+  font-size: 0.9rem; /* Tamanho da fonte */
+  margin-top: 5px; /* Espaçamento acima da mensagem */
 }

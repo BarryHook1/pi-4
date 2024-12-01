@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./vendedorpage.css";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../hooks/AuthContext";
 
 const VendedorPage = () => {
   const navigate = useNavigate();
@@ -10,12 +10,12 @@ const VendedorPage = () => {
   const [products, setProducts] = useState([]);
   const [proposals, setProposals] = useState([]);
   const [sellerInfo, setSellerInfo] = useState(null);
-  const [activeTab, setActiveTab] = useState('produtos');
+  const [activeTab, setActiveTab] = useState("produtos");
 
   useEffect(() => {
     if (!isVendedor) {
-      alert('Você precisa ser um vendedor para acessar esta página.');
-      navigate('/');
+      alert("Você precisa ser um vendedor para acessar esta página.");
+      navigate("/");
     } else {
       fetchProducts();
       fetchProposals();
@@ -25,21 +25,25 @@ const VendedorPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/vendedor/products/${userId}`);
+      const response = await fetch(
+        `http://localhost:8080/vendedor/products/${userId}`
+      );
       const data = await response.json();
       setProducts(data);
     } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
+      console.error("Erro ao buscar produtos:", error);
     }
   };
 
   const fetchProposals = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/vendedor/proposals/${userId}`);
+      const response = await fetch(
+        `http://localhost:8080/vendedor/proposals/${userId}`
+      );
       const data = await response.json();
       setProposals(data);
     } catch (error) {
-      console.error('Erro ao buscar propostas:', error);
+      console.error("Erro ao buscar propostas:", error);
     }
   };
 
@@ -49,7 +53,7 @@ const VendedorPage = () => {
       const data = await response.json();
       setSellerInfo(data);
     } catch (error) {
-      console.error('Erro ao obter informações do vendedor:', error);
+      console.error("Erro ao obter informações do vendedor:", error);
     }
   };
 
@@ -58,11 +62,11 @@ const VendedorPage = () => {
       const response = await fetch(
         `http://localhost:8080/products/${productId}`,
         {
-          method: 'DELETE',
+          method: "DELETE",
         }
       );
       if (response.ok) {
-        alert('Produto excluído com sucesso!');
+        alert("Produto excluído com sucesso!");
         // Atualizar a lista de produtos
         setProducts(products.filter((product) => product._id !== productId));
       } else {
@@ -70,7 +74,7 @@ const VendedorPage = () => {
         alert(`Erro ao excluir produto: ${data.message}`);
       }
     } catch (error) {
-      console.error('Erro ao excluir produto:', error);
+      console.error("Erro ao excluir produto:", error);
     }
   };
 
@@ -79,14 +83,14 @@ const VendedorPage = () => {
       const response = await fetch(
         `http://localhost:8080/products/${productId}`,
         {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ stock: updatedStock }),
         }
       );
       const data = await response.json();
       if (response.ok) {
-        alert('Estoque atualizado com sucesso!');
+        alert("Estoque atualizado com sucesso!");
         // Atualizar a lista de produtos
         setProducts(
           products.map((product) =>
@@ -99,9 +103,9 @@ const VendedorPage = () => {
         alert(`Erro ao atualizar estoque: ${data.message}`);
       }
     } catch (error) {
-      console.error('Erro ao atualizar estoque:', error);
+      console.error("Erro ao atualizar estoque:", error);
       alert(
-        'Erro ao atualizar estoque. Verifique o console para mais detalhes.'
+        "Erro ao atualizar estoque. Verifique o console para mais detalhes."
       );
     }
   };
@@ -128,7 +132,8 @@ const VendedorPage = () => {
                     </p>
                   )}
                   <p>
-                    <strong>Data:</strong> {new Date(rating.date).toLocaleString()}
+                    <strong>Data:</strong>{" "}
+                    {new Date(rating.date).toLocaleString()}
                   </p>
                 </div>
               ))
@@ -141,27 +146,27 @@ const VendedorPage = () => {
 
       <div className="tab-menu">
         <button
-          className={activeTab === 'produtos' ? 'active' : ''}
-          onClick={() => setActiveTab('produtos')}
+          className={activeTab === "produtos" ? "active" : ""}
+          onClick={() => setActiveTab("produtos")}
         >
           Meus Produtos
         </button>
         <button
-          className={activeTab === 'propostas' ? 'active' : ''}
-          onClick={() => setActiveTab('propostas')}
+          className={activeTab === "propostas" ? "active" : ""}
+          onClick={() => setActiveTab("propostas")}
         >
           Propostas
         </button>
       </div>
 
-      {activeTab === 'produtos' && (
+      {activeTab === "produtos" && (
         <div className="product-list">
           {products.length > 0 ? (
             products.map((product) => (
               <div
                 key={product._id}
                 className={`product-card ${
-                  product.stock === 0 ? 'out-of-stock' : ''
+                  product.stock === 0 ? "out-of-stock" : ""
                 }`}
               >
                 <h3>{product.typePart}</h3>
@@ -195,7 +200,7 @@ const VendedorPage = () => {
                   <button
                     onClick={() => {
                       const newStock = prompt(
-                        'Digite a nova quantidade em estoque:',
+                        "Digite a nova quantidade em estoque:",
                         product.stock
                       );
                       if (newStock !== null && !isNaN(newStock)) {
@@ -214,7 +219,7 @@ const VendedorPage = () => {
         </div>
       )}
 
-      {activeTab === 'propostas' && (
+      {activeTab === "propostas" && (
         <div className="proposal-list">
           {proposals.length > 0 ? (
             proposals.map((proposal) => (
@@ -230,7 +235,7 @@ const VendedorPage = () => {
                   <strong>Mensagem:</strong> {proposal.message}
                 </p>
                 <p>
-                  <strong>Data:</strong>{' '}
+                  <strong>Data:</strong>{" "}
                   {new Date(proposal.date).toLocaleString()}
                 </p>
               </div>

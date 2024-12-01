@@ -1,12 +1,12 @@
 // home.js
 import React, { useState } from "react";
 import "./home.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import bmwLogo from "../../assets/bmw.webp";
 import bydLogo from "../../assets/byd.webp";
 import chevroletLogo from "../../assets/chevrolet.webp";
 import renaultLogo from "../../assets/renault.webp";
-import banner from "../../assets/bannerteste.png";
+import banner from "../../assets/banner3.png";
 import turbina from "../../assets/turbina.jpeg";
 import paddle from "../../assets/paddle.jpg";
 // Importar as marcas e modelos
