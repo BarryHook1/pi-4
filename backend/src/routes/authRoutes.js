@@ -7,9 +7,9 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/signup", register);
 
-console.log(
+/*console.log(
   "Rotas registradas:",
   router.stack.map((r) => r.route?.path)
-);
+);*/
 
 module.exports = router;
