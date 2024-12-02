@@ -423,14 +423,24 @@ const SearchPage = () => {
     }));
   };
 
-  // Função para buscar os produtos do backend
+  // Function to fetch products
   const fetchProducts = async () => {
     try {
       const response = await fetch("http://localhost:8080/products");
       const data = await response.json();
-      setProducts(data);
+
+      console.log("Fetched products:", data); // Debug log to inspect response
+
+      // Ensure data is an array before setting state
+      if (Array.isArray(data)) {
+        setProducts(data);
+      } else {
+        console.error("Expected an array of products, received:", data);
+        setProducts([]); // Fallback to an empty array
+      }
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
+      setProducts([]); // Fallback to an empty array in case of error
     }
   };
 
@@ -672,6 +682,17 @@ const SearchPage = () => {
                 className="product-card-link"
               >
                 <div className="product-card">
+                  {/* Renderiza a imagem do produto ou um placeholder */}
+                  {product.images && product.images.length > 0 ? (
+                    <img
+                      src={product.images[0]} // Exibe a primeira imagem do array
+                      alt={product.typePart || "Imagem do produto"}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div className="product-placeholder">Sem Imagem</div>
+                  )}
+
                   {/* Aqui você pode exibir as informações do produto */}
                   <h3>{product.typePart}</h3>
                   <p>

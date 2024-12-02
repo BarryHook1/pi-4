@@ -32,8 +32,21 @@ const ProductDetail = () => {
         `http://localhost:8080/products/${productId}`
       );
       const data = await response.json();
+
+      console.log("Fetch product:", data); // Verificar os dados recebidos
+
+      // Configurar o estado do produto
       setProduct(data);
-      fetchSellerInfo(data.vendedor._id);
+
+      // Garantir que o vendedor e o _id existem antes de acessar
+      if (data.vendedor && data.vendedor._id) {
+        console.log("ID do vendedor encontrado:", data.vendedor._id); // Verificar se o ID está correto
+        fetchSellerInfo(data.vendedor._id); // Passar o ID para buscar informações do vendedor
+      } else {
+        console.warn(
+          "Vendedor não encontrado ou ID do vendedor está ausente no produto."
+        );
+      }
     } catch (error) {
       console.error("Erro ao buscar produto:", error);
     }
@@ -43,6 +56,7 @@ const ProductDetail = () => {
     try {
       const response = await fetch(`http://localhost:8080/seller/${sellerId}`);
       const data = await response.json();
+      console.log("Vendedor id:", data);
       setSeller(data);
     } catch (error) {
       console.error("Erro ao obter informações do vendedor:", error);
