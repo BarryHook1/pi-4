@@ -2,24 +2,34 @@ const Proposal = require("../models/Proposal");
 
 const createProposal = async (req, res) => {
   try {
-    const proposal = await Proposal.create(req.body);
-    res
-      .status(201)
-      .json({ message: "Proposta enviada com sucesso.", proposal });
+    const { productId, sellerId, email, phone, message } = req.body;
+
+    const newProposal = new Proposal({
+      product: productId,
+      seller: sellerId,
+      email,
+      phone,
+      message,
+    });
+
+    await newProposal.save();
+    res.status(201).json({ message: "Proposta enviada com sucesso." });
   } catch (error) {
-    res.status(500).json({ message: "Erro ao enviar proposta.", error });
+    console.error("Erro ao enviar proposta:", error);
+    res.status(500).json({ message: "Erro ao enviar proposta." });
   }
 };
 
 const getProposalsBySeller = async (req, res) => {
-  const { sellerId } = req.params;
   try {
+    const { sellerId } = req.params;
     const proposals = await Proposal.find({ seller: sellerId }).populate(
       "product"
     );
     res.status(200).json(proposals);
   } catch (error) {
-    res.status(500).json({ message: "Erro ao obter propostas.", error });
+    console.error("Erro ao obter propostas:", error);
+    res.status(500).json({ message: "Erro ao obter propostas." });
   }
 };
 

@@ -20,12 +20,15 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        const { name, vendedor, userId } = data;
+        const { user } = data; // Extracting the `user` object from the response
+        const { name, vendedor, id } = user; // Extracting specific values from the `user` object
 
-        // Chamar a função `login` do AuthContext
-        login(name, vendedor, userId);
+        console.log("Resposta front login", data);
 
-        // Navegar para a página inicial
+        // Call the `login` function from AuthContext with correct values
+        login(name, vendedor, id);
+
+        // Navigate to the home page
         navigate("/");
       } else {
         alert(`Erro ao fazer login: ${data.message}`);

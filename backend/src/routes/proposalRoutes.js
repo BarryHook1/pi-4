@@ -7,7 +7,7 @@ const {
 const router = express.Router();
 
 // Rotas de propostas
-router.post("/", createProposal);
-router.get("/seller/:sellerId", getProposalsBySeller);
+router.post("/proposals", createProposal);
+router.get("/vendedor/proposals/:sellerId", getProposalsBySeller);
 
 module.exports = router;

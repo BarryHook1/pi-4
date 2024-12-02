@@ -7,7 +7,7 @@ const {
 const router = express.Router();
 
 // Rotas de compras
-router.post("/", createPurchase);
-router.get("/:userId", getPurchasesByUser);
+router.post("/purchase", createPurchase);
+router.get("/purchases/:userId", getPurchasesByUser);
 
 module.exports = router;

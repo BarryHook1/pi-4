@@ -423,14 +423,24 @@ const SearchPage = () => {
     }));
   };
 
-  // Função para buscar os produtos do backend
+  // Function to fetch products
   const fetchProducts = async () => {
     try {
       const response = await fetch("http://localhost:8080/products");
       const data = await response.json();
-      setProducts(data);
+
+      console.log("Fetched products:", data); // Debug log to inspect response
+
+      // Ensure data is an array before setting state
+      if (Array.isArray(data)) {
+        setProducts(data);
+      } else {
+        console.error("Expected an array of products, received:", data);
+        setProducts([]); // Fallback to an empty array
+      }
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
+      setProducts([]); // Fallback to an empty array in case of error
     }
   };
 
