@@ -57,24 +57,37 @@ const VendedorPage = () => {
     }
   };
 
+  // Função atualizada: define o estoque como zero em vez de deletar
   const handleDelete = async (productId) => {
     try {
+      const updatedStock = 0; // Definimos o estoque para zero
       const response = await fetch(
         `http://localhost:8080/products/${productId}`,
         {
-          method: "DELETE",
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stock: updatedStock }),
         }
       );
+      const data = await response.json();
       if (response.ok) {
-        alert("Produto excluído com sucesso!");
+        alert("Estoque definido como zero com sucesso!");
         // Atualizar a lista de produtos
-        setProducts(products.filter((product) => product._id !== productId));
+        setProducts(
+          products.map((product) =>
+            product._id === productId
+              ? { ...product, stock: updatedStock }
+              : product
+          )
+        );
       } else {
-        const data = await response.json();
-        alert(`Erro ao excluir produto: ${data.message}`);
+        alert(`Erro ao atualizar estoque: ${data.message}`);
       }
     } catch (error) {
-      console.error("Erro ao excluir produto:", error);
+      console.error("Erro ao atualizar estoque:", error);
+      alert(
+        "Erro ao atualizar estoque. Verifique o console para mais detalhes."
+      );
     }
   };
 
