@@ -1,7 +1,6 @@
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
-
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -12,16 +11,33 @@ import java.net.InetSocketAddress;
  */
 public class EmailValidationServer {
     public static void main(String[] args) throws IOException {
-        // Cria um servidor HTTP na porta 9000
-        HttpServer server = HttpServer.create(new InetSocketAddress(9000), 0);
+         /* Um servidor com HttpServer.create() e o inicia (server.start())
+          automaticamente escuta conexões em um Socket interno.      
+          e não precisa chamar accept() manualmente porque o HttpServer já faz isso , e entrega
+          a conexão encapsulada no objeto HttpExchange. -> void handle(HttpeExchange exchange)
+         */
+        HttpServer server = HttpServer.create(new InetSocketAddress(9000), 0); //Cria um servidor HTTP na rota 9000
         System.out.println("Servidor de validacao de e-mails rodando na porta 9000...");
-
+        /*
+         * Define o contexto para a rota "/validateEmail".
+         * O contexto é associado a um manipulador (EmailValidationHandler), 
+         * que será chamado para processar requisições enviadas para essa rota.
+         */
        // Define o contexto para a rota "/validateEmail" e associa o manipulador de validação
         server.createContext("/validateEmail", new EmailValidationHandler());
-
+        /*
+         O executor padrão processa as requisições em uma única thread,
+         o que é suficiente para o nosso projeto. 
+         */
         // Define o executor padrão e inicia o servidor
         server.setExecutor(null); // Usa um executor padrão (thread única)
         server.start();
+        /*
+         * Neste ponto, o servidor já está escutando conexões na porta 9000.
+         * O método accept() do ServerSocket interno é chamado automaticamente
+         * pelo HttpServer. Ele aceita conexões de clientes e passa o processamento
+         * para o EmailValidationHandler, encapsulando as requisições em objetos HttpExchange.
+         */
     }
     /**
      * Classe interna que lida com as requisições para a validação de e-mails.
