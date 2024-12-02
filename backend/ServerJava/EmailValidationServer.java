@@ -11,13 +11,12 @@ import java.net.InetSocketAddress;
  */
 public class EmailValidationServer {
     public static void main(String[] args) throws IOException {
-        // Um servidor com HttpServer.create() e o inicia (server.start()), 
-        //automaticamente escuta conexões em um Socket interno.
-        /*
+         /* Um servidor com HttpServer.create() e o inicia (server.start())
+          automaticamente escuta conexões em um Socket interno.      
           e não precisa chamar accept() manualmente porque o HttpServer já faz isso , e entrega
           a conexão encapsulada no objeto HttpExchange. -> void handle(HttpeExchange exchange)
          */
-        HttpServer server = HttpServer.create(new InetSocketAddress(9000), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(9000), 0); //Cria um servidor HTTP na rota 9000
         System.out.println("Servidor de validacao de e-mails rodando na porta 9000...");
         /*
          * Define o contexto para a rota "/validateEmail".
