@@ -682,6 +682,17 @@ const SearchPage = () => {
                 className="product-card-link"
               >
                 <div className="product-card">
+                  {/* Renderiza a imagem do produto ou um placeholder */}
+                  {product.images && product.images.length > 0 ? (
+                    <img
+                      src={product.images[0]} // Exibe a primeira imagem do array
+                      alt={product.typePart || "Imagem do produto"}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div className="product-placeholder">Sem Imagem</div>
+                  )}
+
                   {/* Aqui você pode exibir as informações do produto */}
                   <h3>{product.typePart}</h3>
                   <p>
