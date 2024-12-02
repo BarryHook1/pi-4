@@ -1,4 +1,3 @@
-// PaymentModal.js
 import React, { useState, useContext } from "react";
 import "./PaymentModal.css";
 import { AuthContext } from "../../hooks/AuthContext";

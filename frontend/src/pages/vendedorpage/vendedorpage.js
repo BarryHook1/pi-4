@@ -1,4 +1,3 @@
-// VendedorPage.js
 import React, { useState, useEffect, useContext } from "react";
 import "./vendedorpage.css";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./search.css";
-import { useLocation, Link } from "react-router-dom"; // Importar 'Link'
+import { useLocation, Link } from "react-router-dom";
 
 export const carBrandsWithModels = {
   Chevrolet: [

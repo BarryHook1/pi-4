@@ -10,6 +10,7 @@ import ProductDetail from "./pages/productdetailpage/ProductDetail";
 import HelpPage from "./pages/helppage/helppage";
 import PurchaseHistory from "./pages/PurchaseHistory/PurchaseHistory";
 import Layout from "./pages/layout/layout";
+import AboutUs from "./pages/aboutUs/aboutus";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         {/* Rota para a SellPage */}
         <Route path="/vendedorpage" element={<VendedorPage />} />{" "}
         {/* Rota para a VendedorPage */}
+        <Route path="/about" element={<AboutUs />} />{" "}
+        {/* Rota para a página de Sobre nós */}
         <Route path="/help" element={<HelpPage />} />{" "}
         {/* Rota para a página de ajuda */}
         <Route path="/product/:productId" element={<ProductDetail />} />

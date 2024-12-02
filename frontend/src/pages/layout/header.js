@@ -1,4 +1,3 @@
-// header.js
 import React, { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -69,7 +68,7 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <div>
+              <div className="user-bem-vindo">
                 <span>Bem-vindo, {userName}</span>
                 <button className="logout-btn" onClick={handleLogout}>
                   Logout

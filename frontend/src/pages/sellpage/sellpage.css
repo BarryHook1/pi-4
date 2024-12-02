@@ -39,7 +39,7 @@
   letter-spacing: 6.5px;
   word-spacing: 10px; /* Adiciona 2px entre palavras */
   text-shadow: 8px 15px 7px rgba(0, 0, 0, 0.5); /* Sombra deslocada 2px */
-  background-color: rgb(207, 15, 51); /* Cor padrão */
+  background-color: rgb(207, 15, 51);
   transition: background-color 0.3s ease; /* Transição suave */
 }
 
@@ -79,7 +79,7 @@
   display: inline-block;
   padding-bottom: 10px;
 }
-/* Grupo de formulário */
+
 /* Grupo de formulário */
 .form-group {
   margin-bottom: 15px;

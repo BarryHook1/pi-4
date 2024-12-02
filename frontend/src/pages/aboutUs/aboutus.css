@@ -1,0 +1,24 @@
+.about-us {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  
+  .about-us h1 {
+    font-size: 2.5em;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .about-intro {
+    font-size: 1em;
+    color: #555555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }

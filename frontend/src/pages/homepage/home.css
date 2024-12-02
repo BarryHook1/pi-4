@@ -1,6 +1,16 @@
-/* CSS completo */
+/* Remove a barra de rolagem no navegador */
+html {
+  overflow: hidden; /* Remove a barra de rolagem no eixo vertical */
+}
 
-/* Geral */
+body {
+  overflow-y: scroll; /* Permite rolar a página sem exibir a barra de rolagem */
+}
+
+/* Esconde visualmente a barra de rolagem no WebKit (Chrome, Edge e Safari) */
+body::-webkit-scrollbar {
+  display: none; /* Remove a barra de rolagem */
+}
 
 .homepage {
   font-family: "Poppins", sans-serif;

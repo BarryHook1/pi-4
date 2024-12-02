@@ -25,7 +25,7 @@
   margin: 0;
 }
 
-.footer-links a {
+.footer-links a, .footer-links link{
   text-decoration: none;
   color: #333;
   font-size: 13px;
@@ -33,5 +33,5 @@
 }
 
 .footer-links a:hover {
-  color: #0056b3; /* Cor ao passar o mouse */
+  color: #FFFFFF; /* Cor ao passar o mouse */
 }

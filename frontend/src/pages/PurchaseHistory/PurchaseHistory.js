@@ -1,4 +1,3 @@
-// PurchaseHistory.js
 import React, { useState, useEffect, useContext } from "react";
 import "./PurchaseHistory.css";
 import { AuthContext } from "../../hooks/AuthContext";

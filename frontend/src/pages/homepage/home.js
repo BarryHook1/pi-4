@@ -1,4 +1,3 @@
-// home.js
 import React, { useState } from "react";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
