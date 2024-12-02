@@ -16,9 +16,9 @@ router.get("/:userId", getUserById);
 router.put("/:userId", updateUser);
 router.post("/rateSeller", rateSeller);
 
-console.log(
+/*console.log(
   "Rotas registradas:",
   router.stack.map((r) => r.route?.path)
-);
+);*/
 
 module.exports = router;
