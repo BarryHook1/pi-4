@@ -2,8 +2,6 @@
 
 > **WebPecas** é um ecossistema de marketplace auto-parts robusto, full-stack e orientado a microserviços. Conecta fornecedores autônomos e grandes lojistas de peças automotivas diretamente com os consumidores finais, oferecendo um ambiente seguro de transação, um sofisticado gerenciador de painel (dashboard) e processamento em nuvem de mídia.
 
-![WebPecas Banner](https://via.placeholder.com/1000x300.png?text=WebPecas+Marketplace+Architecture)
-
 O projeto se destaca por abraçar uma arquitetura poliglotática, unindo o poder de I/O não-bloqueante e roteamento rápido do **Node.js (Express)**, persistência flexível em NoSQL do **MongoDB**, reatividade robusta e baseada em hooks do **React.js**, e até mesmo delegando fluxos de validação de dados em background para um microserviço HTTP desenvolvido puramente em **Java**.
 
 ---
