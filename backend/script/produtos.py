@@ -1,4 +1,5 @@
 import random
+import os
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
@@ -12,7 +13,7 @@ seller_ids = [
 ]
 
 # Conecta ao MongoDB usando o MONGO_URI fornecido
-MONGO_URI = "mongodb+srv://henrique:123@cluster0.juves.mongodb.net/WebPecas?retryWrites=true&w=majority"
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/WebPecas")
 
 client = MongoClient(MONGO_URI)
 db = client["WebPecas"]  # O nome do banco de dados é 'WebPecas', conforme o MONGO_URI
