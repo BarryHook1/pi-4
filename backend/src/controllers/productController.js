@@ -4,7 +4,12 @@ const User = require("../models/User");
 const addProduct = async (req, res) => {
   try {
     const vendedorId = req.body.vendedorId;
-    console.log(vendedorId);
+    
+    // Verificar se o vendedorId foi enviado
+    if (!vendedorId) {
+      return res.status(400).json({ message: "Vendedor não informado." });
+    }
+
     // Verificar se o vendedorId existe e se o usuário é um vendedor
     const vendedor = await User.findById(vendedorId);
     if (!vendedor || !vendedor.vendedor) {
@@ -29,19 +34,15 @@ const addProduct = async (req, res) => {
       images: req.body.images,
     };
 
-    console.log("Img :%s", novoProduto.img);
-
     // Salvando o produto na coleção de produtos
     const produtoSalvo = await Product.create(novoProduto);
 
-    console.log("Produto Novo", novoProduto);
-
     res
-      .status(200)
+      .status(201)
       .json({ message: "Produto adicionado com sucesso", produtoSalvo });
   } catch (error) {
-    console.error("Erro ao adicionar produto:", error);
-    res.status(500).json({ message: "Erro ao adicionar produto." });
+    console.error("Erro ao adicionar produto:", error.message);
+    res.status(500).json({ message: "Erro ao adicionar produto.", error: error.message });
   }
 };
 

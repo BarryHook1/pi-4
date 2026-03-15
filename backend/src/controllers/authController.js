@@ -15,9 +15,23 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Senha incorreta." });
     }
 
-    res.status(200).json({ message: "Login bem-sucedido", user });
+    // Generate JWT
+    const jwt = require("jsonwebtoken");
+    const token = jwt.sign(
+      { userId: user._id, vendedor: user.vendedor },
+      process.env.JWT_SECRET || "fallback_secret",
+      { expiresIn: "1d" }
+    );
+
+    // Filter out password from response
+    const userObject = user.toObject();
+    delete userObject.password;
+    userObject.id = userObject._id; // Front-end expects 'id' parameter
+
+    res.status(200).json({ message: "Login bem-sucedido", user: userObject, token });
   } catch (error) {
-    res.status(500).json({ message: "Erro no servidor.", error });
+    console.error("Erro no login:", error);
+    res.status(500).json({ message: "Erro no servidor.", error: error.message });
   }
 };
 

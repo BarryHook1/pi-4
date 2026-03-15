@@ -5,7 +5,7 @@ const Product = require("../models/Product");
 const getUserById = async (req, res) => {
   const { userId } = req.params;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "Usuário não encontrado." });
     }
@@ -18,7 +18,14 @@ const getUserById = async (req, res) => {
 const updateUser = async (req, res) => {
   const { userId } = req.params;
   try {
-    const user = await User.findByIdAndUpdate(userId, req.body, { new: true });
+    // Prevent updating password through this route
+    const updateData = { ...req.body };
+    delete updateData.password;
+
+    const user = await User.findByIdAndUpdate(userId, updateData, { new: true }).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado." });
+    }
     res.status(200).json({ message: "Usuário atualizado com sucesso.", user });
   } catch (error) {
     res.status(500).json({ message: "Erro ao atualizar usuário.", error });
@@ -85,7 +92,7 @@ const rateSeller = async (req, res) => {
 const getSellerDetails = async (req, res) => {
   try {
     const { sellerId } = req.params;
-    const seller = await User.findById(sellerId).exec();
+    const seller = await User.findById(sellerId).select("-password").exec();
 
     if (!seller) {
       console.log("Vendedor não encontrado.");

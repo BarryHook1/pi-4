@@ -418,7 +418,7 @@ def generate_random_product():
     stock = random.randint(1, 23)
     condition = random.choice(conditions)
     description = random.choice(descriptions)
-    price = round(random.uniform(350.0, 3000.0), 2)
+    price = round(float(random.uniform(350.0, 3000.0)), 2)
     
     product = {
         "vendedor": vendedor,
