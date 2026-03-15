@@ -13,9 +13,6 @@ const SignupPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Debugging: Mostra o valor do role no console antes de enviar
-        console.log('Role selecionado:', role);  // Verifica se o role está sendo atualizado corretamente
-
         if (password.length < 6) {
             setMessage("A senha deve ter pelo menos 6 caracteres.");
             return;
@@ -23,8 +20,6 @@ const SignupPage = () => {
 
         try {
             const isVendedor = role === 'vendedor';  // Converte a string para booleano diretamente aqui
-
-            console.log('Booleano vendedor:', isVendedor);  // Mostra o valor booleano que será enviado ao backend
 
             const response = await fetch('http://localhost:8080/signup', {
                 method: 'POST',

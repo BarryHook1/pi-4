@@ -23,8 +23,6 @@ const LoginPage = () => {
         const { user } = data; // Extracting the `user` object from the response
         const { name, vendedor, id } = user; // Extracting specific values from the `user` object
 
-        console.log("Resposta front login", data);
-
         // Call the `login` function from AuthContext with correct values
         login(name, vendedor, id);
 
